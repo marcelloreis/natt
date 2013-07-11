@@ -1,0 +1,332 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2013-03-14 09:44-0300\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+################################################################################
+#### Este arquivo acumula todas as traducoes dos campos e models  			####
+#### ou seja, cada projeto que é desenvolvido sera salvo todas as traducoes ####
+#### dos campos e modelos													####
+################################################################################
+
+
+######################
+#### Modelos 	######
+######################
+msgid "Event"
+msgstr "Evento"
+
+msgid "City"
+msgstr "Cidade"
+
+msgid "Country"
+msgstr "País"
+
+msgid "Grid"
+msgstr "Grade"
+
+msgid "Group"
+msgstr "Grupo"
+
+msgid "Inscription"
+msgstr "Inscrição"
+
+msgid "Marketing"
+msgstr "Email Marketing"
+
+msgid "Responsible"
+msgstr "Responsável"
+
+msgid "Social"
+msgstr "Perfil Social"
+
+msgid "Speaker"
+msgstr "Palestrante"
+
+msgid "Sponsor"
+msgstr "Patrocinador"
+
+msgid "State"
+msgstr "Estado"
+
+msgid "Student"
+msgstr "Estudante"
+
+msgid "User"
+msgstr "Usuário"
+
+msgid "Workshop"
+msgstr "Oficina"
+
+
+##########################
+#### Controladores 	######
+##########################
+#: View/Elements/menu-sidebar.ctp:6
+msgid "Users"
+msgstr "Usuários"
+
+msgid "Groups"
+msgstr "Grupos"
+
+#: View/Elements/menu-sidebar.ctp:6
+msgid "Cities"
+msgstr "Cidades"
+
+#: View/Elements/menu-sidebar.ctp:6
+msgid "Events"
+msgstr "Eventos"
+
+#: View/Elements/menu-sidebar.ctp:11
+msgid "Grids"
+msgstr "Grades"
+
+#: View/Elements/menu-sidebar.ctp:16
+msgid "Students"
+msgstr "Estudantes"
+
+#: View/Elements/menu-sidebar.ctp:21
+msgid "Inscriptions"
+msgstr "Inscrições"
+
+#: View/Elements/menu-sidebar.ctp:34
+msgid "Marketings"
+msgstr "Email Marketings"
+
+#: View/Elements/menu-sidebar.ctp:34
+msgid "Workshops"
+msgstr "Oficinas"
+
+#: View/Elements/menu-sidebar.ctp:38
+msgid "Sponsors"
+msgstr "Patrocinadores"
+
+#: View/Elements/menu-sidebar.ctp:42
+msgid "Responsibles"
+msgstr "Responsáveis"
+
+#: View/Elements/menu-sidebar.ctp:46
+msgid "Speakers"
+msgstr "Palestrantes"
+
+
+
+######################
+#### Campos 	######
+######################
+
+msgid "Event_id"
+msgstr "Evento"
+
+msgid "City_id"
+msgstr "Cidade"
+
+msgid "Country_id"
+msgstr "País"
+
+msgid "Grid_id"
+msgstr "Grade"
+
+msgid "Group_id"
+msgstr "Grupo"
+
+msgid "Inscription_id"
+msgstr "Inscrição"
+
+msgid "Marketing_id"
+msgstr "Emailmarketing"
+
+msgid "Responsible_id"
+msgstr "Responsável"
+
+msgid "Social_id"
+msgstr "Perfil Social"
+
+msgid "Speaker_id"
+msgstr "Palestrante"
+
+msgid "Sponsor_id"
+msgstr "Patrocinador"
+
+msgid "State_id"
+msgstr "Estado"
+
+msgid "Student_id"
+msgstr "Estudante"
+
+msgid "User_id"
+msgstr "Usuário"
+
+msgid "Workshop_id"
+msgstr "Oficina"
+
+msgid "People"
+msgstr "Pessoas"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "About"
+msgstr "Sobre"
+
+msgid "Address"
+msgstr "Endereço"
+
+msgid "Neighborhood"
+msgstr "Bairro"
+
+msgid "Facebook_link"
+msgstr "Facebook"
+
+msgid "Twitter_link"
+msgstr "Twitter"
+
+msgid "Google_link"
+msgstr "Google"
+
+msgid "Password"
+msgstr "Senha"
+
+msgid "Doc"
+msgstr "Documento"
+
+msgid "Birthday"
+msgstr "Aniversário"
+
+msgid "Telephone"
+msgstr "Telefone"
+
+msgid "Telephone1"
+msgstr "Telefone"
+
+msgid "Telephone2"
+msgstr "Telefone"
+
+msgid "Sex"
+msgstr "Sexo"
+
+msgid "Shirt_size"
+msgstr "Tamanho Camisa"
+
+msgid "Study_level"
+msgstr "Formação"
+
+msgid "Complement"
+msgstr "Complemento"
+
+msgid "Is_paid"
+msgstr "Pago"
+
+msgid "Payment_type"
+msgstr "Tipo Pagamento"
+
+msgid "Print_invoice"
+msgstr "Dt Impressão Fatura"
+
+msgid "Matriculation"
+msgstr "Matrícula"
+
+msgid "Status"
+msgstr "Ativo"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Printable_name"
+msgstr "Nome de exibição"
+
+msgid "Numcode"
+msgstr "Código"
+
+msgid "Uf"
+msgstr "UF"
+
+msgid "Ddd"
+msgstr "DDD"
+
+msgid "Given_name"
+msgstr "Apelido"
+
+msgid "Subject"
+msgstr "Assunto"
+
+msgid "Content"
+msgstr "Conteúdo"
+
+msgid "Date_sent"
+msgstr "Data de envio"
+
+msgid "Date_ini"
+msgstr "Início"
+
+msgid "Date_end"
+msgstr "Fim"
+
+msgid "Attached"
+msgstr "Anexo"
+
+msgid "Send"
+msgstr "Enviar"
+
+msgid "Zipcode"
+msgstr "CEP"
+
+msgid "Instituition"
+msgstr "Instituição"
+
+msgid "Course"
+msgstr "Curso"
+
+msgid "Course_ini"
+msgstr "Início do Curso"
+
+msgid "Course_end"
+msgstr "Final do Curso"
+
+msgid "Course_period"
+msgstr "Período do Curso"
+
+msgid "Number"
+msgstr "Número"
+
+msgid "Vacancies"
+msgstr "Vagas"
+
+msgid "Available"
+msgstr "Disponível"
+
+msgid "Description"
+msgstr "Descrição"
+
+msgid "Interval"
+msgstr "Intervalo"
+
+msgid "Hour Ini"
+msgstr "Hora Ini"
+
+msgid "Hour End"
+msgstr "Hora Fim"
+
+msgid "Date_ini_time"
+msgstr "Hora Ini"
+
+msgid "Date_end_time"
+msgstr "Hora Fim"
+
+msgid "Newsletter"
+msgstr "Receber Notícias"
+
+msgid "Picture"
+msgstr "Avatar"
+

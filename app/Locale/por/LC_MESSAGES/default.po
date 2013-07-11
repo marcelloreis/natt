@@ -1,0 +1,415 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2013-03-14 09:44-0300\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#Traducoes Gerais
+msgid "Yes"
+msgstr "Sim"
+
+msgid "No"
+msgstr "Não"
+
+msgid "Save"
+msgstr "Salvar"
+
+msgid "Controllers"
+msgstr "Controladores"
+
+msgid "Switch Main Menu"
+msgstr "Minimizar/Maximizar Menu Principal"
+
+msgid "This field must be filled in correctly."
+msgstr "Este campo deve ser preenchido corretamente."
+
+msgid "Form saved successfully."
+msgstr "Formulário salvo com sucesso."
+
+msgid "Manage by %s"
+msgstr "Gerenciar por %s"
+
+msgid "Refresh %s"
+msgstr "Atualizar %s"
+
+msgid "Refresh %s and %s"
+msgstr "Atualizar %s e %s"
+
+msgid "Delete %s and %s"
+msgstr "Excluír %s e %s"
+
+msgid "Delete %s"
+msgstr "Excluír %s"
+
+msgid "Are you sure you want to delete all %s and %s?"
+msgstr "Tem certeza que deseja excluir todos(as) os(as) %s e %s?"
+
+msgid "Are you sure you want to delete all %s"
+msgstr "Tem certeza que deseja excluir todos(as) os(as) %s"
+
+#: Controller/AppController.php:227
+msgid "Your session has expired. Make a new login!"
+msgstr "Sua sessão expirou. Faça um novo login!"
+
+#: Controller/AppController.php:240;274
+msgid "you do not have permission to view"
+msgstr "você não tem permissão para visualizar"
+
+#: Controller/AppController.php:247
+msgid "you do not have permission to edit"
+msgstr "você não tem permissão para Alterar"
+
+#: Controller/AppController.php:253
+msgid "you are not allowed to view the content of"
+msgstr "você não tem permissão para visualizar o conteúdo de"
+
+#: Controller/AppController.php:261;268
+msgid "you are not allowed to add"
+msgstr "você não tem permissão para adicionar"
+
+#: Controller/AppController.php:280
+msgid "you are not allowed to trash"
+msgstr "você não tem permissão para excluir"
+
+#: Controller/AppController.php:286
+msgid "you are not allowed to delete"
+msgstr "você não tem permissão para excluir permanentemente"
+
+#: Controller/AppController.php:300
+msgid "you are not allowed to view trashed records"
+msgstr "você não tem permissão para vizualizar registros da lixeira"
+
+#: Controller/AppController.php:312
+msgid "you are not allowed to view deleted records"
+msgstr "você não tem permissão para visualizar registros excluídos"
+
+#: Controller/AppController.php:477
+msgid "It was not possible to view the %s, or it does not exist in the database."
+msgstr "Não foi possível visualizar o %s, ou ele não existe na base de dados."
+
+#: Controller/AppController.php:511
+msgid "It was not possible to edit the %s [%s], or it does not exist in the database."
+msgstr "Não foi possível Alterar o %s [%s], ou ele não existe na base de dados."
+
+#: Controller/AppController.php:590
+msgid "The %s does not exist in the database."
+msgstr "O %s não existe na base de dados."
+
+#: Controller/AppController.php:616
+msgid "%s moved to the trash."
+msgstr "% movido para a lixeira."
+
+#: Controller/AppController.php:618
+msgid "Unable to move the %s to the trash."
+msgstr "Não foi possível mover o %s para a lixeira."
+
+#: Controller/AppController.php:638
+msgid "%s deleted."
+msgstr "%s excluído"
+
+#: Controller/AppController.php:640
+msgid "Unable delete the %s."
+msgstr "Não foi possível excluir o %s."
+
+#: Controller/AppController.php:659
+msgid "%s restored."
+msgstr "%s restaurado."
+
+#: Controller/AppController.php:661
+msgid "Unable restore the %s."
+msgstr "Não foi possível restaurar o %s."
+
+#: Controller/AppController.php:668
+msgid "%s restaured to the trash."
+msgstr "% restaurado da lixeira."
+
+#: Controller/AppController.php:670
+msgid "Unable restore the %s to the trash."
+msgstr "Não foi possível restaurar o %s da lixeira."
+
+#: Controller/AppController.php:891
+msgid "The %s was disassociated %s successfully."
+msgstr "A %s foi desassociada do %s com sucesso."
+
+#: Controller/AppController.php:893
+msgid "Could not unbind %s and %s."
+msgstr "Não foi possível desvincular %s e %s."
+
+#: View/Cities/edit.ctp:7
+#: View/Countries/edit.ctp:7
+#: View/Events/edit.ctp:7
+#: View/Grids/edit.ctp:7
+#: View/Groups/edit.ctp:7
+#: View/Inscriptions/edit.ctp:7
+#: View/Marketings/edit.ctp:7
+#: View/Responsibles/edit.ctp:7
+#: View/Speakers/edit.ctp:7
+#: View/Sponsors/edit.ctp:7
+#: View/States/edit.ctp:7
+#: View/Students/edit.ctp:7
+#: View/Users/edit.ctp:7
+#: View/Workshops/edit.ctp:7
+msgid "Edit %s"
+msgstr "Alterar %s"
+
+#: View/Cities/index.ctp:9
+#: View/Countries/index.ctp:9
+#: View/Elements/habtm.ctp:20
+#: View/Elements/project/habtm-grid.ctp:20
+#: View/Events/index.ctp:5
+#: View/Grids/index.ctp:5
+#: View/Groups/index.ctp:8
+#: View/Inscriptions/index.ctp:5
+#: View/Marketings/index.ctp:5
+#: View/Responsibles/index.ctp:5
+#: View/Speakers/index.ctp:5
+#: View/Sponsors/index.ctp:5
+#: View/States/index.ctp:5
+#: View/Students/index.ctp:5
+#: View/Users/index.ctp:9
+#: View/Workshops/index.ctp:5
+msgid "Actions"
+msgstr "Ações"
+
+
+#: View/Countries/index.ctp:10
+msgid "Name"
+msgstr "Nome"
+
+#: View/Elements/bottom.ctp:19
+msgid "Version"
+msgstr "Versão"
+
+#: View/Elements/habtm.ctp:9
+#: View/Elements/table-actions-habtm.ctp:3
+#: View/Elements/project/habtm-grid.ctp:9
+msgid "Unjoin"
+msgstr "Desvincular"
+
+#: View/Elements/habtm.ctp:10
+#: View/Elements/project/habtm-grid.ctp:10
+msgid "Add Relationship"
+msgstr "Adicionar Relacionamento"
+
+#: View/Elements/habtm.ctp:18
+#: View/Elements/project/habtm-grid.ctp:18
+msgid "ID"
+msgstr "Código"
+
+#: View/Elements/habtm.ctp:19
+#: View/Elements/project/habtm-grid.ctp:19
+msgid "Description"
+msgstr "Descrição"
+
+#: View/Elements/menu-top-user.ctp:9
+msgid "Settings"
+msgstr "Configurações"
+
+#: View/Elements/menu-sidebar.ctp:55
+msgid "Locales"
+msgstr "Locais"
+
+#: View/Elements/menu-sidebar.ctp:62
+msgid "Countries"
+msgstr "Países"
+
+#: View/Elements/menu-sidebar.ctp:66
+msgid "States"
+msgstr "Estados"
+
+#: View/Elements/menu-sidebar.ctp:70
+msgid "Cities"
+msgstr "Cidades"
+
+#: View/Elements/menu-sidebar.ctp:77
+msgid "Security"
+msgstr "Segurança"
+
+#: View/Elements/menu-sidebar.ctp:84
+msgid "Users"
+msgstr "Usuários"
+
+#: View/Elements/menu-sidebar.ctp:88
+msgid "Groups"
+msgstr "Grupos"
+
+#: View/Elements/menu-sidebar.ctp:92
+msgid "Permissions"
+msgstr "Permissões"
+
+#: View/Elements/menu-top-user.ctp:10
+#: View/Elements/user-info.ctp:24
+msgid "Logout"
+msgstr "Sair"
+
+#: View/Elements/table-actions-habtm.ctp:2
+#: View/Elements/table-actions.ctp:14
+msgid "View Record"
+msgstr "Vizualizar Registro"
+
+#: View/Elements/table-actions-habtm.ctp:3
+msgid "Are you sure you want to remove this association?"
+msgstr "Tem certeza de que deseja remover esta associação?"
+
+#: View/Elements/table-actions.ctp:6
+msgid "Add record"
+msgstr "Adicionar Registro"
+
+#: View/Elements/table-actions.ctp:10
+msgid "Add/Delete record"
+msgstr "Adicionar/Excluir Registro"
+
+#: View/Elements/table-actions.ctp:15
+msgid "Edit Record"
+msgstr "Alterar Registro"
+
+#: View/Elements/table-actions.ctp:17
+#: View/Elements/toolbar-index.ctp:33
+msgid "Restore"
+msgstr "Restaurar"
+
+#: View/Elements/table-actions.ctp:17
+msgid "Are you sure you want to restore this record from the trash?"
+msgstr "Tem certeza de que deseja restaurar o registro da lixeira?"
+
+#: View/Elements/table-actions.ctp:19
+#: View/Elements/toolbar-index.ctp:51
+msgid "Trash"
+msgstr "Lixeira"
+
+#: View/Elements/table-actions.ctp:19
+msgid "Are you sure you want to move this record to the trash?"
+msgstr "Tem certeza de que deseja mover esse registro para a lixeira?"
+
+#: View/Elements/toolbar-edit.ctp:5
+msgid "Enter the data for the new record."
+msgstr "Insira os dados do novo regristro."
+
+#: View/Elements/toolbar-edit.ctp:9
+msgid "Last change of this record."
+msgstr "Última alteração deste registro."
+
+#: View/Elements/toolbar-edit.ctp:16
+msgid "New"
+msgstr "Novo(a)"
+
+#: View/Elements/toolbar-edit.ctp:19
+msgid "List"
+msgstr "Listar"
+
+#: View/Elements/toolbar-edit.ctp:19
+msgid "List %s"
+msgstr "Listar %s"
+
+#: View/Elements/toolbar-index-paginator.ctp:44
+msgid "First"
+msgstr "Início"
+
+#: View/Elements/toolbar-index-paginator.ctp:54
+msgid "Last"
+msgstr "Último"
+
+#: View/Elements/toolbar-index-paginator.ctp:44
+msgid "Next"
+msgstr "Próximo"
+
+#: View/Elements/toolbar-index-paginator.ctp:54
+msgid "Prev"
+msgstr "Anterior"
+
+#: View/Elements/toolbar-index.ctp:7
+msgid "What are you looking for"
+msgstr "O que esta procurando"
+
+#: View/Elements/toolbar-index.ctp:9
+msgid "Search"
+msgstr "Busca"
+
+#: View/Elements/toolbar-index.ctp:22
+msgid "Bulk Actions"
+msgstr "Ações em Massa"
+
+#: View/Elements/toolbar-index.ctp:29
+msgid "Move to Trash"
+msgstr "Mover para a lixeira"
+
+#: View/Elements/toolbar-index.ctp:37
+msgid "Delete Permanently"
+msgstr "Excluír permanentemente"
+
+#: View/Elements/toolbar-index.ctp:43
+msgid "Apply"
+msgstr "Aplicar"
+
+#: View/Elements/toolbar-index.ctp:43
+msgid "Apply the action"
+msgstr "Aplicar a ação"
+
+#: View/Elements/toolbar-index.ctp:49
+msgid "Show All"
+msgstr "Tudo"
+
+#: View/Elements/toolbar-index.ctp:49
+msgid "Show all %s"
+msgstr "Exibir todos(as) %s"
+
+#: View/Elements/toolbar-index.ctp:51
+msgid "Show all %s trashed"
+msgstr "Exibir todos(as) %s da lixeira"
+
+#: View/Elements/toolbar-index.ctp:57
+msgid "Add a %s"
+msgstr "Adicionar um(a) %s"
+
+#: View/Elements/toolbar-index.ctp:61
+msgid "Save associated records"
+msgstr "Salvar registros associados"
+
+#: View/Elements/user-info.ctp:23
+msgid "Personal Information"
+msgstr "Informações Pessoais"
+
+#: View/Elements/Templates/input-fk.ctp:6
+msgid "Click the magnifying glass to search"
+msgstr "Clique na lupa para buscar"
+
+#: View/Elements/Templates/table-header.ctp:3
+msgid "record(s) found"
+msgstr "registro(s) encontrados"
+
+######################
+#### Actions 	######
+######################
+msgid "index"
+msgstr "índice"
+
+msgid "edit"
+msgstr "alterar"
+
+msgid "add"
+msgstr "adicionar"
+
+msgid "view"
+msgstr "visualizar"
+
+msgid "delete"
+msgstr "excluir"
+
+msgid "trash"
+msgstr "lixeira"
+
+msgid "restore"
+msgstr "restaurar"
+
+msgid "options"
+msgstr "opções"

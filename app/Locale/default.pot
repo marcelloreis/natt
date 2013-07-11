@@ -1,0 +1,598 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2013-03-14 12:36-0300\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Controller/AppController.php:227
+msgid "Your session has expired. Make a new login!"
+msgstr ""
+
+#: Controller/AppController.php:240;274
+msgid "you do not have permission to view"
+msgstr ""
+
+#: Controller/AppController.php:247
+msgid "you do not have permission to edit"
+msgstr ""
+
+#: Controller/AppController.php:253
+msgid "you are not allowed to view the content of"
+msgstr ""
+
+#: Controller/AppController.php:261;268
+msgid "you are not allowed to add"
+msgstr ""
+
+#: Controller/AppController.php:280
+msgid "you are not allowed to trash"
+msgstr ""
+
+#: Controller/AppController.php:286
+msgid "you are not allowed to delete"
+msgstr ""
+
+#: Controller/AppController.php:300
+msgid "you are not allowed to view trashed records"
+msgstr ""
+
+#: Controller/AppController.php:312
+msgid "you are not allowed to view deleted records"
+msgstr ""
+
+#: Controller/AppController.php:477
+msgid "It was not possible to view the %s, or it does not exist in the database."
+msgstr ""
+
+#: Controller/AppController.php:511
+msgid "It was not possible to edit the %s [%s], or it does not exist in the database."
+msgstr ""
+
+#: Controller/AppController.php:590
+msgid "The %s does not exist in the database."
+msgstr ""
+
+#: Controller/AppController.php:616
+msgid "%s moved to the trash."
+msgstr ""
+
+#: Controller/AppController.php:618
+msgid "Unable to move the %s to the trash."
+msgstr ""
+
+#: Controller/AppController.php:638
+msgid "%s deleted."
+msgstr ""
+
+#: Controller/AppController.php:640
+msgid "Unable delete the %s."
+msgstr ""
+
+#: Controller/AppController.php:659
+msgid "%s restored."
+msgstr ""
+
+#: Controller/AppController.php:661
+msgid "Unable restore the %s."
+msgstr ""
+
+#: Controller/AppController.php:668
+msgid "%s restaured to the trash."
+msgstr ""
+
+#: Controller/AppController.php:670
+msgid "Unable restore the %s to the trash."
+msgstr ""
+
+#: Controller/AppController.php:891
+msgid "The %s was disassociated %s successfully."
+msgstr ""
+
+#: Controller/AppController.php:893
+msgid "Could not unbind %s and %s."
+msgstr ""
+
+#: Controller/SponsorsController.php:44
+msgid "Diamond"
+msgstr ""
+
+#: Controller/SponsorsController.php:44
+msgid "Gold"
+msgstr ""
+
+#: Controller/SponsorsController.php:44
+msgid "Silver"
+msgstr ""
+
+#: Controller/StudentsController.php:44
+#: View/Students/index.ctp:28
+msgid "Female"
+msgstr ""
+
+#: Controller/StudentsController.php:44
+#: View/Students/index.ctp:28
+msgid "Male"
+msgstr ""
+
+#: Controller/StudentsController.php:45
+msgid "Baby Pequena"
+msgstr ""
+
+#: Controller/StudentsController.php:45
+msgid "Baby Grande"
+msgstr ""
+
+#: Controller/StudentsController.php:45
+msgid "Pequena"
+msgstr ""
+
+#: Controller/StudentsController.php:45
+msgid "Média"
+msgstr ""
+
+#: Controller/StudentsController.php:45
+msgid "Grande"
+msgstr ""
+
+#: Controller/StudentsController.php:45
+msgid "Extra Grande"
+msgstr ""
+
+#: Controller/StudentsController.php:46
+msgid "Superior completo"
+msgstr ""
+
+#: Controller/StudentsController.php:46
+msgid "Superior incompleto"
+msgstr ""
+
+#: Controller/StudentsController.php:46
+msgid "Medio completo"
+msgstr ""
+
+#: Controller/StudentsController.php:46
+msgid "Medio incompleto"
+msgstr ""
+
+#: View/Cities/edit.ctp:7
+#: View/Countries/edit.ctp:7
+#: View/Events/edit.ctp:7
+#: View/Grids/edit.ctp:7
+#: View/Groups/edit.ctp:7
+#: View/Inscriptions/edit.ctp:7
+#: View/Marketings/edit.ctp:7
+#: View/Responsibles/edit.ctp:7
+#: View/Speakers/edit.ctp:7
+#: View/Sponsors/edit.ctp:7
+#: View/States/edit.ctp:7
+#: View/Students/edit.ctp:7
+#: View/Users/edit.ctp:7
+#: View/Workshops/edit.ctp:7
+msgid "Edit %s"
+msgstr ""
+
+#: View/Cities/index.ctp:9
+#: View/Countries/index.ctp:9
+#: View/Elements/habtm.ctp:20
+#: View/Elements/project/habtm-grid.ctp:20
+#: View/Events/index.ctp:5
+#: View/Grids/index.ctp:5
+#: View/Groups/index.ctp:8
+#: View/Inscriptions/index.ctp:5
+#: View/Marketings/index.ctp:5
+#: View/Responsibles/index.ctp:5
+#: View/Speakers/index.ctp:5
+#: View/Sponsors/index.ctp:5
+#: View/States/index.ctp:5
+#: View/Students/index.ctp:5
+#: View/Users/index.ctp:9
+#: View/Workshops/index.ctp:5
+msgid "Actions"
+msgstr ""
+
+#: View/Countries/index.ctp:10
+msgid "Name"
+msgstr ""
+
+#: View/Elements/bottom.ctp:19
+msgid "Version"
+msgstr ""
+
+#: View/Elements/habtm.ctp:9
+#: View/Elements/table-actions-habtm.ctp:3
+#: View/Elements/project/habtm-grid.ctp:9
+msgid "Unjoin"
+msgstr ""
+
+#: View/Elements/habtm.ctp:10
+#: View/Elements/toolbar-index.ctp:57
+#: View/Elements/project/habtm-grid.ctp:10
+msgid "add"
+msgstr ""
+
+#: View/Elements/habtm.ctp:10
+#: View/Elements/project/habtm-grid.ctp:10
+msgid "Add Relationship"
+msgstr ""
+
+#: View/Elements/habtm.ctp:18
+#: View/Elements/project/habtm-grid.ctp:18
+msgid "ID"
+msgstr ""
+
+#: View/Elements/habtm.ctp:19
+#: View/Elements/project/habtm-grid.ctp:19
+msgid "Description"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:6
+msgid "Events"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:11
+msgid "Grids"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:16
+msgid "Students"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:21
+msgid "Inscriptions"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:27
+#: View/Elements/menu-top-user.ctp:9
+msgid "Settings"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:34
+msgid "Workshops"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:38
+msgid "Sponsors"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:42
+msgid "Responsibles"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:46
+msgid "Speakers"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:55
+msgid "Locales"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:62
+msgid "Countries"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:66
+msgid "States"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:70
+msgid "Cities"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:77
+msgid "Security"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:84
+msgid "Users"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:88
+msgid "Groups"
+msgstr ""
+
+#: View/Elements/menu-sidebar.ctp:92
+msgid "Permissions"
+msgstr ""
+
+#: View/Elements/menu-top-user.ctp:10
+#: View/Elements/user-info.ctp:24
+msgid "Logout"
+msgstr ""
+
+#: View/Elements/shortcuts.ctp:2
+msgid "Add Student"
+msgstr ""
+
+#: View/Elements/shortcuts.ctp:3
+msgid "Add Grid"
+msgstr ""
+
+#: View/Elements/shortcuts.ctp:4
+msgid "Add Event"
+msgstr ""
+
+#: View/Elements/shortcuts.ctp:5
+msgid "Add Inscription"
+msgstr ""
+
+#: View/Elements/table-actions-habtm.ctp:2
+#: View/Elements/table-actions.ctp:14
+msgid "View Record"
+msgstr ""
+
+#: View/Elements/table-actions-habtm.ctp:3
+msgid "Are you sure you want to remove this association?"
+msgstr ""
+
+#: View/Elements/table-actions.ctp:6
+msgid "Add record"
+msgstr ""
+
+#: View/Elements/table-actions.ctp:10
+msgid "Add/Delete record"
+msgstr ""
+
+#: View/Elements/table-actions.ctp:15
+msgid "Edit Record"
+msgstr ""
+
+#: View/Elements/table-actions.ctp:17
+#: View/Elements/toolbar-index.ctp:33
+msgid "Restore"
+msgstr ""
+
+#: View/Elements/table-actions.ctp:17
+msgid "Are you sure you want to restore this record from the trash?"
+msgstr ""
+
+#: View/Elements/table-actions.ctp:19
+#: View/Elements/toolbar-index.ctp:51
+msgid "Trash"
+msgstr ""
+
+#: View/Elements/table-actions.ctp:19
+msgid "Are you sure you want to move this record to the trash?"
+msgstr ""
+
+#: View/Elements/toolbar-edit.ctp:5
+msgid "Enter the data for the new record."
+msgstr ""
+
+#: View/Elements/toolbar-edit.ctp:9
+msgid "Last change of this record."
+msgstr ""
+
+#: View/Elements/toolbar-edit.ctp:16
+msgid "New"
+msgstr ""
+
+#: View/Elements/toolbar-edit.ctp:19
+msgid "List"
+msgstr ""
+
+#: View/Elements/toolbar-index-paginator.ctp:44
+msgid "First"
+msgstr ""
+
+#: View/Elements/toolbar-index-paginator.ctp:54
+msgid "Last"
+msgstr ""
+
+#: View/Elements/toolbar-index.ctp:7
+msgid "What are you looking for"
+msgstr ""
+
+#: View/Elements/toolbar-index.ctp:9
+msgid "Search"
+msgstr ""
+
+#: View/Elements/toolbar-index.ctp:22
+msgid "Bulk Actions"
+msgstr ""
+
+#: View/Elements/toolbar-index.ctp:29
+msgid "Move to Trash"
+msgstr ""
+
+#: View/Elements/toolbar-index.ctp:37
+msgid "Delete Permanently"
+msgstr ""
+
+#: View/Elements/toolbar-index.ctp:43
+msgid "Apply"
+msgstr ""
+
+#: View/Elements/toolbar-index.ctp:43
+msgid "Apply the action"
+msgstr ""
+
+#: View/Elements/toolbar-index.ctp:49
+msgid "Show All %"
+msgstr ""
+
+#: View/Elements/toolbar-index.ctp:49
+msgid "Show all %s"
+msgstr ""
+
+#: View/Elements/toolbar-index.ctp:51
+msgid "Show all %s trashed"
+msgstr ""
+
+#: View/Elements/toolbar-index.ctp:57
+msgid "Add a %s"
+msgstr ""
+
+#: View/Elements/toolbar-index.ctp:61
+msgid "Save associated records"
+msgstr ""
+
+#: View/Elements/user-info.ctp:23
+msgid "Personal Information"
+msgstr ""
+
+#: View/Elements/Templates/input-fk.ctp:6
+msgid "Click the magnifying glass to search"
+msgstr ""
+
+#: View/Elements/Templates/table-header.ctp:3
+msgid "record(s) found"
+msgstr ""
+
+#: View/Events/edit.ctp:9;10;11
+#: View/Grids/edit.ctp:9
+msgid "List %s"
+msgstr ""
+
+#: View/Events/edit.ctp:9
+msgid "Responsible"
+msgstr ""
+
+#: View/Events/edit.ctp:10
+msgid "Speaker"
+msgstr ""
+
+#: View/Events/edit.ctp:11
+msgid "Sponsor"
+msgstr ""
+
+#: View/Events/edit.ctp:50
+#: View/Grids/edit.ctp:44
+msgid "Interval"
+msgstr ""
+
+#: View/Events/edit.ctp:54
+#: View/Grids/edit.ctp:48
+#: View/Grids/index.ctp:6
+msgid "Hour Ini"
+msgstr ""
+
+#: View/Events/edit.ctp:55
+#: View/Grids/edit.ctp:49
+#: View/Grids/index.ctp:7
+msgid "Hour End"
+msgstr ""
+
+#: View/Grids/edit.ctp:9
+msgid "Inscription"
+msgstr ""
+
+#: View/Inscriptions/edit.ctp:28
+#: View/Sponsors/edit.ctp:28
+#: View/Students/edit.ctp:48;52;56
+msgid "Select"
+msgstr ""
+
+#: Model/City.php:validation for field state_id
+msgid "O campo Estado deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/City.php:validation for field name
+#: Model/Country.php:validation for field name
+#: Model/Event.php:validation for field name
+#: Model/Speaker.php:validation for field name
+#: Model/Sponsor.php:validation for field name
+#: Model/State.php:validation for field name
+#: Model/User.php:validation for field name
+msgid "O campo Nome deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/Country.php:validation for field printable_name
+msgid "notempty"
+msgstr ""
+
+#: Model/Event.php:validation for field about
+msgid "O campo Sobre deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/Event.php:validation for field date_ini
+msgid "O campo Início deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/Event.php:validation for field date_end
+msgid "O campo Fim deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/Grid.php:validation for field workshop_id
+msgid "O campo Workshop deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/Grid.php:validation for field event_id
+msgid "O campo Event deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/Grid.php:validation for field speaker_id
+msgid "O campo Palestrante deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/Inscription.php:validation for field student_id
+msgid "O campo Estudante deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/Inscription.php:validation for field event_id
+msgid "O campo Evento deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/Inscription.php:validation for field is_paid
+msgid "O campo Pago deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/Marketing.php:validation for field student_id
+msgid "O campo Student_id deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/Marketing.php:validation for field event_id
+msgid "O campo Event_id deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/Marketing.php:validation for field subject
+msgid "O campo Subject deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/Marketing.php:validation for field content
+msgid "O campo Content deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/Responsible.php:validation for field name
+#: Model/Workshop.php:validation for field name
+msgid "O campo Name deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/State.php:validation for field country_id
+msgid "O campo País deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/Student.php:validation for field city_id
+msgid "O campo City_id deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/User.php:validation for field group_id
+msgid "O campo Grupo deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/User.php:validation for field given_name
+msgid "O campo Apelido deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/User.php:validation for field password
+msgid "O campo Senha deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/User.php:validation for field email
+msgid "O campo Email deve ser preenchido corretamente."
+msgstr ""
+
+#: Model/User.php:validation for field status
+#: Model/Workshop.php:validation for field status
+msgid "O campo Status deve ser preenchido corretamente."
+msgstr ""
+

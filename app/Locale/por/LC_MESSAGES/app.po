@@ -1,0 +1,180 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2013-03-14 09:44-0300\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Controller/SponsorsController.php:44
+msgid "Diamond"
+msgstr "Diamante"
+
+#: Controller/SponsorsController.php:44
+msgid "Gold"
+msgstr "Ouro"
+
+#: Controller/SponsorsController.php:44
+msgid "Silver"
+msgstr "Prata"
+
+#: Controller/StudentsController.php:44
+#: View/Students/index.ctp:28
+msgid "Female"
+msgstr "Feminino"
+
+#: Controller/StudentsController.php:44
+#: View/Students/index.ctp:28
+msgid "Male"
+msgstr "Masculino"
+
+#: Controller/StudentsController.php:45
+msgid "Baby Pequena"
+msgstr ""
+
+#: Controller/StudentsController.php:45
+msgid "Baby Grande"
+msgstr ""
+
+#: Controller/StudentsController.php:45
+msgid "Pequena"
+msgstr ""
+
+#: Controller/StudentsController.php:45
+msgid "Média"
+msgstr ""
+
+#: Controller/StudentsController.php:45
+msgid "Grande"
+msgstr ""
+
+#: Controller/StudentsController.php:45
+msgid "Extra Grande"
+msgstr ""
+
+#: Controller/StudentsController.php:46
+msgid "Superior completo"
+msgstr ""
+
+#: Controller/StudentsController.php:46
+msgid "Superior incompleto"
+msgstr ""
+
+#: Controller/StudentsController.php:46
+msgid "Medio completo"
+msgstr ""
+
+#: Controller/StudentsController.php:46
+msgid "Medio incompleto"
+msgstr ""
+
+#: View/Elements/shortcuts.ctp:2
+msgid "Add Student"
+msgstr "Adicionar Estudantes"
+
+#: View/Elements/shortcuts.ctp:3
+msgid "Add Grid"
+msgstr "Adicionar Grade"
+
+#: View/Elements/shortcuts.ctp:4
+msgid "Add Event"
+msgstr "Adicionar Evento"
+
+#: View/Elements/shortcuts.ctp:5
+msgid "Add Inscription"
+msgstr "Adicionar Inscrição"
+
+#: View/Inscriptions/edit.ctp:30
+#: View/Sponsors/edit.ctp:31
+#: View/Students/edit.ctp:51;55;59
+msgid "Select"
+msgstr "Selecione"
+
+#: View/Elements/menu-sidebar.ctp:27
+msgid "Settings"
+msgstr "Configurações"
+
+
+
+###############################
+#### Tags Email Marketings ####
+###############################
+
+msgid "Student's Name"
+msgstr "Nome do Estudante"
+
+msgid "Student Email"
+msgstr "Email do Estudante"
+
+msgid "Student Enrollment"
+msgstr "Matrícula do Estudante"
+
+msgid "Document Student"
+msgstr "Documento do Estudante"
+
+msgid "Birthday Student"
+msgstr "Aniversário do Estudante"
+
+msgid "Student's Telephone"
+msgstr "Telefone do Estudante"
+
+msgid "Student Sex"
+msgstr "Sexo do Estudante"
+
+msgid "Clothing Size Student"
+msgstr "Tamanho da camisa do Estudante"
+
+msgid "Address Student"
+msgstr "Endereço do Estudante"
+
+msgid "Student's Complement"
+msgstr "Complemento do Estudante"
+
+msgid "Neighborhood Student"
+msgstr "Bairro do Estudante"
+
+msgid "Educational level of the student"
+msgstr "Nível Educacional do Estudante"
+
+msgid "Event Name"
+msgstr "Nome do Evento"
+
+msgid "About Event"
+msgstr "Sobre o Evento"
+
+msgid "Date of start of the event"
+msgstr "Data de início do evento"
+
+msgid "Date of the end of the event"
+msgstr "Data de finalização do evento"
+
+msgid "Event Address"
+msgstr "Endereço do Evento"
+
+msgid "Neighbothood Event"
+msgstr "Bairro do Evento"
+
+msgid "Facebook Link"
+msgstr "Link do Facebook"
+
+msgid "Twitter Link"
+msgstr "Link do Twitter"
+
+msgid "Google Link"
+msgstr "Link do Google"
+
+
+
+
+
+
+
+

@@ -1,0 +1,4 @@
+<?php 
+echo $this->Html->link('<span class="magnifyglass-10 plix-10"></span>', array("controller" => Inflector::pluralize(Inflector::variable($this->params['named']['habtm'])), "action" => "view", $habtm_id), array('title' => __('View Record'), 'class' => 'button-icon tip-s', 'escape' => false));
+echo $this->Html->link('<span class="trashcan-10 plix-10"></span>', array("controller" => $this->params['controller'], "action" => "unjoin", $id, 'habtm_id' => $habtm_id, 'habtm' => $this->params['named']['habtm']), array('title' => __('Unjoin'), 'onclick' => "return confirm('" . __('Are you sure you want to remove this association?') . "');", 'class' => 'button-icon tip-s', 'escape' => false));
+?>
