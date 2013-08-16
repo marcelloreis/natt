@@ -34,9 +34,9 @@ class AppController extends Controller {
 	/**
 	* Declaracao dos atributos privados da classe
 	*/
-	public $userLogged;
 	private $Model;
 	private $isRedirect = true;
+	public $userLogged;
 
 	/**
 	* Carrega os componentes que poderao ser usados em quaisquer controller desta framework
@@ -70,13 +70,15 @@ class AppController extends Controller {
 	/**
 	* Método beforeFilter
 	* Esta função é executada antes de todas ações do controlador. 
-	* E no caso da freamework, esta sendo usado para checar uma sessão ativa e inspecionar permissões.
+	* E no caso da framework, esta sendo usado para checar uma sessão ativa e inspecionar permissões.
 	*
 	* @override Metodo Controller.beforeFilter
 	* @return void
 	*/
 	public function beforeFilter() {
+		//@override
 		parent::beforeFilter();
+
 		/**
 		* AREA DESTINADA A FUNCOES ESPECIFICAS DO PROJETO, ESTAS FUNCOES NAO PERTENCEM A FRAMEWORK
 		*/
@@ -100,7 +102,7 @@ class AppController extends Controller {
 		/**
 		* Carrega o Helper AppForm com todos os campos do model e e suas regras de validacao configuradas
 		*/
-		if(method_exists($this->Model, 'getColumnTypes')){
+		if($this->Model->useTable){
 			$this->helpers['Main.AppForm'] = array('fields' => $this->Model->getColumnTypes(), 'validate' => $this->Model->validate, 'modelClass' => $this->modelClass);
 		}
 
@@ -135,7 +137,7 @@ class AppController extends Controller {
     	 * Configurações do componente Auth
     	 */
 		$this->Auth->authorize = array(
-			'Controller',
+			// 'Controller',
 			'Actions' => array('actionPath' => 'controllers')
 		);
     	$this->Auth->userModel = 'User';
@@ -148,14 +150,19 @@ class AppController extends Controller {
 		/**
 		 * Autorizações gerais
 		 */
-		$this->Auth->allow('login', 'logout', 'authentication', 'import_students');
+		$this->Auth->allow('login', 'logout', 'authentication', 'natt_fixo_2_landline', 'pb');
 	}
 
     /**
      * Chamado depois controlador com as regras de negócio, mas antes da visão ser renderizada.
+	*
+	* @override Metodo Controller.beforeRender
+	* @return void
      */
     public function beforeRender(){
+		//@override
     	parent::beforeRender();
+
     	//Carrega a variavel de ambiente userLogged com as informações do usuario logado
     	$this->set('userLogged', $this->userLogged);
 		//Carrega o nome do model nas variaveis de ambiente para ser acessado na view
@@ -173,7 +180,7 @@ class AppController extends Controller {
 			/**
 			* Verifica se o model tem acesso a funcao 'getColumnTypes'
 			*/
-			if(method_exists($this->Model, 'getColumnTypes')){
+			if($this->Model->useTable){
 				/**
 				* Concatena os campos virtuais com os campos reais
 				*/
@@ -217,6 +224,9 @@ class AppController extends Controller {
 	* @return boolean
 	*/
     public function isAuthorized($user) {
+    	/**
+    	* Libera o retorno TRUE quando a aplicacao estiver em ambiente de homologacao/testes
+    	*/
     	// return true;
 
 		/**
@@ -299,7 +309,7 @@ class AppController extends Controller {
 
 		/**
 		* Checa se o parametro trashed esta setados, caso esteja
-		* verifica se o usuario tem permissao para a visualizacao
+		* verifica se o usuario tem permissao para a visualizacao de registros da lixeira
 		*/
 		if(
 			(isset($this->params['named'][ACTION_TRASH]) && !empty($this->params['named'][ACTION_TRASH])) ||
@@ -328,7 +338,7 @@ class AppController extends Controller {
 
 	/**
 	* Método index
-	* Este método contem regras de negocios visualizar todos os registros contidos na entidade do controlador
+	* Este método contem regras de negocios visualizar todos os registros contidos na entidade/tabela do controlador
 	*
 	* @param Array $params
 	* @return void
@@ -337,7 +347,7 @@ class AppController extends Controller {
 		/**
 		* Controle de encapsulamento.
 		* Independente do action, sempre que a funcao "index" for invocada
-		* sera carregado a view "app/View/Actions/index.ctp"
+		* sera carregado a view "app/View/[Actions]/index.ctp"
 		* a menos que a funcao "$this->render('action', 'layout', 'file')" seja invocada
 		* no Controller
 		*/
@@ -345,7 +355,7 @@ class AppController extends Controller {
 		$this->Model->recursive = 0;
 
 		/**
-		* Verifica se o index foi chamado apartir de uma grid de relacionamento de dados
+		* Verifica se o index foi chamado apartir de uma grid de adicao de relacionamento de dados
 		* Caso seja, sera excluido da consulta todos os registros que ja estao relacionado ao
 		* id do model passado por parametro
 		*/
@@ -364,9 +374,9 @@ class AppController extends Controller {
 		if($this->Model->useTable){
 	    	/**
 			 * Se o campo "q" for igual a 1, simula o envio do form por get
-			 * redirecionando para http://domain/controller/action/seach:value1/namedN:valueN
+			 * redirecionando para http://[domain]/[controller]/[action]/seach:value1/namedN:valueN
 	    	 */
-	    	$this->__data2query();
+	    	$this->__post2get();
 
 	    	/**
 	    	* Verifica se foi passado algum valor na variavel padrao de busca
@@ -442,21 +452,21 @@ class AppController extends Controller {
 			unset($params['conditions']["{$this->modelClass}." . ACTION_TRASH]);
 			unset($params['conditions']["{$this->modelClass}." . ACTION_DELETE]);
 			$inbox = $this->Model->find('count', $params);
-			$this->set('inbox', $inbox);
+			$this->set(compact('inbox'));
 			
 			/**
 			* Conta quantos registros enviados para lixeira existem com os mesmos parametros de busca
 			*/
 			$params['conditions']["{$this->modelClass}." . ACTION_TRASH] = true;
 			$trashed = $this->Model->find('count', $params);
-			$this->set('trashed', $trashed);
+			$this->set(compact('trashed'));
 			
 			/**
 			* Conta quantos registros deletados existem com os mesmos parametros de busca
 			*/
 			$params['conditions']["{$this->modelClass}." . ACTION_DELETE] = true;
 			$deleted = $this->Model->find('count', $params);
-			$this->set('deleted', $deleted);
+			$this->set(compact('deleted'));
 
 	    	return $map;
 		}
@@ -654,7 +664,7 @@ class AppController extends Controller {
 	* Método restore
 	*
 	* Esta funcao é um encapsulamento da funcao __remove, porem a funcao __remove sera chamada 
-	* passando como parametro a acao ACTION_DELETE que força a atualizacao do campo deleted do registro
+	* passando os parametros necessarios para que o registro seja removido da lixeira
 	*
 	* @param String $id
 	* @return void
@@ -684,7 +694,7 @@ class AppController extends Controller {
 
 
 	/**
-	 * Verifica que se usuário logado tem acesso ao controlador/ação passada po parametro
+	 * Verifica que se usuário logado tem acesso ao controlador/ação passada por parametro
 	 */
 	private function hasPermission($actionPath){
 		return $this->Acl->check(array('model' => 'User', 'foreign_key' => $this->Session->read('Auth.User.id')), $actionPath);
@@ -786,7 +796,7 @@ class AppController extends Controller {
 	 * Se o campo "q" for igual a 1, simula o envio do form por get
 	 * redirecionando para http://domain/controller/action/seach:value1/namedN:valueN
 	 */
-	protected function __data2query(){
+	protected function __post2get(){
     	if(isset($this->request->data['q']) && $this->request->data['q'] == 'post'){
 			unset($this->request->data['q']);
 			$redirect = array(

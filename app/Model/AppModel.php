@@ -283,7 +283,9 @@ class AppModel extends Model {
 							 * Formata a data trazida do banco para o formato "dd/mm/YYYY"
 							 */
 							case 'date':
-								$value = date('d/m/Y', strtotime($value));
+								if($value != '0000-00-00'){
+									$value = date('d/m/Y', strtotime($value));
+								}
 								break;
 							/**
 							 * Formata a data trazida do banco para o formato "dd/mm/YYYY hh:ii:ss"

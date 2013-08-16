@@ -1,56 +1,13 @@
 <?php 
 $menu = array(
     /**
+    * Imports
+    */
+    array('label' => __d('fields', 'Import'), 'controller' => 'import', 'icon_left' => '<span class="square-16 plix-16"></span>'),
+    /**
     * Eventos
     */
-    array('label' => __d('fields', 'Events'), 'controller' => 'events', 'icon_left' => '<span class="square-16 plix-16"></span>'),
-
-    /**
-    * Grades
-    */
-    array('label' => __d('fields', 'Grids'), 'controller' => 'grids', 'icon_left' => '<span class="cells-16 plix-16"></span>'),
-
-    /**
-    * Estudantes
-    */
-    array('label' => __d('fields', 'Students'), 'controller' => 'students', 'icon_left' => '<span class="vcard-16 plix-16"></span>'),
-
-    /**
-    * Inscricoes
-    */
-    array('label' => __d('fields', 'Inscriptions'), 'controller' => 'inscriptions', 'icon_left' => '<span class="pencil-16 plix-16"></span>'),
-
-    /**
-    * Configuracoes
-    */
-    array(
-        'label' => __d('app', 'Settings'),
-        'icon_left' => '<span class="settings-16 plix-16"></span>', 
-        'icon_right' => '<span class="button-icon"><span class="plix-10 plus-10"></span></span>',
-        'children' => array(
-            /**
-            * Oficinas
-            */
-            array('label' => __d('fields', 'Workshops'), 'controller' => 'workshops', 'plugin' => false),
-            /**
-            * Patrocinadores
-            */
-            array('label' => __d('fields', 'Sponsors'), 'controller' => 'sponsors', 'plugin' => false),
-            /**
-            * Responsáveis
-            */
-            array('label' => __d('fields', 'Responsibles'), 'controller' => 'responsibles', 'plugin' => false),
-            /**
-            * Palestrantes
-            */
-            array('label' => __d('fields', 'Speakers'), 'controller' => 'speakers', 'plugin' => false),
-            /**
-            * Palestrantes
-            */
-            array('label' => __d('fields', 'Email Marketing'), 'controller' => 'marketings', 'plugin' => false),
-
-            )
-        ),
+    array('label' => __d('fields', 'Checkinlist'), 'controller' => 'chk', 'icon_left' => '<span class="square-16 plix-16"></span>'),
 
     /**
     * Localizacoes
