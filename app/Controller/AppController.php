@@ -150,7 +150,7 @@ class AppController extends Controller {
 		/**
 		 * Autorizações gerais
 		 */
-		$this->Auth->allow('login', 'logout', 'authentication', 'natt_fixo_2_landline', 'pb');
+		$this->Auth->allow('login', 'logout', 'authentication', 'natt_fixo_2_landline');
 	}
 
     /**

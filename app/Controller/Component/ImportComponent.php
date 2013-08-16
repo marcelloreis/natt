@@ -25,11 +25,13 @@ class ImportComponent extends Component {
 	private $City;
 	private $Address;
 	private static $startTime;
+	private static $counter;
 
 	public function __construct() {
 	    $this->Log = ClassRegistry::init('Log');
 	    $this->City = ClassRegistry::init('City');
 	    $this->Address = ClassRegistry::init('Address');
+	    $this->Address = ClassRegistry::init('Counter');
 	}	
 
 	/**
@@ -993,26 +995,68 @@ class ImportComponent extends Component {
 		// fclose($f); 
 	}
 
-/**
- * show a status bar in the console
- * 
- * <code>
- * for($x=1;$x<=100;$x++){
- * 
- *     progressBar($x, 100);
- * 
- *     usleep(100000);
- *                           
- * }
- * </code>
- *
- * @param   int     $done   how many items are completed
- * @param   int     $total  how many items are to be done total
- * @param   int     $size   optional size of the status bar
- * @return  void
- *
- */
+	/**
+	* Método __counter
+	* Este método alimenta o __counter da operacao
+	*
+	* @override Metodo AppController.__counter
+	* @param string $content
+	* @return void
+	*/
+	public function __counter($table){
+		$this->Counter->id = $this->counter[$table]['id'];	
+		$this->Counter->saveAll(array(
+			'success' => $this->counter[$table]['success'], 
+			'fail' => $this->counter[$table]['fail']
+			), 
+		array(
+			'table' => $table,
+			'active' => '1'
+			));
+	}
 
+	/**
+	* Contabiliza uma insercao finalizada com sucesso
+	*/
+	public function success($table){
+		if(!isset($this->counter[$table]['success'])){
+			$this->counter[$table]['success'] = 1;
+		}else{
+			$this->counter[$table]['success']++;
+		}
+	}
+
+	/**
+	* Contabiliza uma falha de insercao
+	*/
+	public function fail($table){
+		if(!isset($this->counter[$table]['fail'])){
+			$this->counter[$table]['fail'] = 1;
+		}else{
+			$this->counter[$table]['fail']++;
+		}
+	}
+
+
+	/**
+	 * show a status bar in the console
+	 * 
+	 * <code>
+	 * for($x=1;$x<=100;$x++){
+	 * 
+	 *     progressBar($x, 100);
+	 * 
+	 *     usleep(100000);
+	 *                           
+	 * }
+	 * </code>
+	 *
+	 * @param   int     $done   how many items are completed
+	 * @param   int     $total  how many items are to be done total
+	 * @param   int     $size   optional size of the status bar
+	 * @return  void
+	 *
+	 */
 	public function progressBar($done, $total, $size=30) {
 	    // if we go over our bound, just ignore it
 	    if($done > $total){

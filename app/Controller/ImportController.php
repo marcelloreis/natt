@@ -119,7 +119,7 @@ echo $nombre_format_francais;
 			/**
 			* Calcula o total de registros que sera importado
 			*/
-			$qt_reg = $this->NattFixoPessoa->find('count' array('conditions' => array('trans' => null)));
+			$this->qt_reg = $this->NattFixoPessoa->find('count');
 
 			/**
 			* Adiciona a flag 'transf' nas tabelas que serao importadas
@@ -141,7 +141,6 @@ echo $nombre_format_francais;
 			$this->db['zipcode'] = $this->Landline->getDataSource();
 			$this->db['entityLandlineAddress'] = $this->EntityLandlineAddress->getDataSource();
 
-// $i=0;
 			do{
 				/**
 				* Verifica se a chave do modulo de importacao esta ativa
@@ -196,14 +195,14 @@ echo $nombre_format_francais;
 					* e carrega o id da entidade importada
 					*/
 					$this->importEntity($data);
-// debug($data);
+
 
 					/**
 					* Exibe o status da importacao no console 
 					*/
 					$this->Import->__flush();
-					$qt_imported++;
-					$this->Import->progressBar($qt_imported, $qt_reg);
+					$this->qt_imported++;
+					$this->Import->progressBar($this->qt_imported, $this->qt_reg);
 
 					/**
 					* Inicializa a importacao dos telefones da entidade encontrada
@@ -248,7 +247,7 @@ echo $nombre_format_francais;
 						* e carrega o id do telefone importado
 						*/
 						$this->importLandline($data, $v['TELEFONE']);
-// debug($data);
+
 						/**
 						* Inicializa a importacao do CEP do telefone encontrado
 						* Trata os dados do CEP para a importacao
@@ -264,7 +263,7 @@ echo $nombre_format_francais;
 						* e carrega o id do CEP importado
 						*/
 						$this->importZipcode($data);
-// debug($data);
+
 						/**
 						* Inicializa a importacao do endereco do telefone encontrado
 						* Trata os dados do endereço para a importacao
@@ -326,13 +325,20 @@ echo $nombre_format_francais;
 								'year' => $year,
 								)
 							);
+						
 						if($this->importEntityLandlineAddress($data)){
+							/**
+							* Registra todas as transacoes
+							*/
 							$this->db['entity']->commit();
 							$this->db['landline']->commit();
 							$this->db['address']->commit();
 							$this->db['zipcode']->commit();
-							$this->db['entityLandlineAddress']->commit();							
+							$this->db['entityLandlineAddress']->commit();
 						}else{
+							/**
+							* Aborta todas as transacoes relacionadas a entidade
+							*/
 							$this->db['entity']->rollback();
 							$this->db['landline']->rollback();
 							$this->db['address']->rollback();
@@ -340,9 +346,14 @@ echo $nombre_format_francais;
 							$this->db['entityLandlineAddress']->rollback();							
 						}
 
-// $v['endereco']['COMPLEMENTO'] = $v['COMPLEMENTO'];
-// $v['endereco']['NUMERO'] = $v['NUMERO'];
-// debug($data);
+						/**
+						* Salva as contabilizacoes na base de dados
+						*/					
+						$this->Import->__counter('entity');
+						$this->Import->__counter('landline');
+						$this->Import->__counter('addresses');
+						$this->Import->__counter('zipcodes');
+						$this->Import->__counter('entities_landlines_addresses');							
 					}
 
 					/**
@@ -350,11 +361,6 @@ echo $nombre_format_francais;
 					*/
 					$this->db['entity']->commit();					
 				}
-
-// $i++;
-// if($i > 3){
-// 	die;
-// }
 
 			}while($entity && count($entity));
 		}
@@ -380,7 +386,8 @@ echo $nombre_format_francais;
 		}else{
 			$this->Entity->create($entity);
 			if($this->Entity->save()){
-				$this->Import->__log("Entidade importada com sucesso", $this->uf, true, $this->Entity->useTable, $this->Entity->id, $entity['Entity']['doc']);
+				$this->Import->success('entities');
+				// $this->Import->__log("Entidade importada com sucesso", $this->uf, true, $this->Entity->useTable, $this->Entity->id, $entity['Entity']['doc']);
 			}else{
 				$this->Import->__log("Falha ao importar a entidade", $this->uf, false, $this->Entity->useTable, null, $entity['Entity']['doc'], $this->db['entity']->error);
 			}
@@ -415,8 +422,10 @@ echo $nombre_format_francais;
 			}else{
 				$this->Landline->create($landline);
 				if($this->Landline->save()){
-					$this->Import->__log("Telefone importado com sucesso.", $this->uf, true, $this->Landline->useTable, $this->Landline->id, $landline['Landline']['tel_full']);
+					$this->Import->success('landlines');
+					// $this->Import->__log("Telefone importado com sucesso.", $this->uf, true, $this->Landline->useTable, $this->Landline->id, $landline['Landline']['tel_full']);
 				}else{
+					$this->Import->fail('landlines');
 					$this->Import->__log("Falha ao importar o telefone.", $this->uf, false, $this->Landline->useTable, null, $landline['Landline']['tel_full'], $this->db['Landline']->error);
 				}
 			}	
@@ -451,8 +460,10 @@ echo $nombre_format_francais;
 			}else{
 				$this->Zipcode->create($zipcode);
 				if($this->Zipcode->save()){
-					$this->Import->__log("CEP importado com sucesso.", $this->uf, true, $this->Zipcode->useTable, $this->Zipcode->id, $zipcode['Zipcode']['code_original']);
+					$this->Import->success('zipcodes');
+					// $this->Import->__log("CEP importado com sucesso.", $this->uf, true, $this->Zipcode->useTable, $this->Zipcode->id, $zipcode['Zipcode']['code_original']);
 				}else{
+					$this->Import->fail('landlines');
 					$this->Import->__log("Falha ao importar o CEP.", $this->uf, false, $this->Zipcode->useTable, null, $zipcode['Zipcode']['code_original'], $this->db['Zipcode']->error);
 				}
 			}	
@@ -486,8 +497,10 @@ echo $nombre_format_francais;
 		}else{
 			$this->Address->create($address);
 			if($this->Address->save()){
-				$this->Import->__log("Endereço importado com sucesso.", $this->uf, true, $this->Address->useTable, $this->Address->id);
+				$this->Import->success('addresses');
+				// $this->Import->__log("Endereço importado com sucesso.", $this->uf, true, $this->Address->useTable, $this->Address->id);
 			}else{
+				$this->Import->fail('landlines');
 				$this->Import->__log("Falha ao importar o endereço.", $this->uf, false, $this->Address->useTable, null, $address['Address']['state_id'], $this->db['Address']->error);
 			}
 		}	
@@ -535,7 +548,10 @@ echo $nombre_format_francais;
 		}else{
 			$this->EntityLandlineAddress->create($entityLandlineAddress);
 			$hasCreated = $this->EntityLandlineAddress->save(); 
-			if(!$hasCreated){
+			if($hasCreated){
+				$this->Import->success('entities_landlines_addresses');
+			}else{
+				$this->Import->fail('landlines');
 				$this->Import->__log("Falha ao importar os dados da tabela entities_landlines_addresses", $this->uf, false, $this->EntityLandlineAddress->useTable, $this->Entity->id);
 			}
 		}	
