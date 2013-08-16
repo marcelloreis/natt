@@ -119,7 +119,7 @@ echo $nombre_format_francais;
 			/**
 			* Calcula o total de registros que sera importado
 			*/
-			$qt_reg = $this->NattFixoPessoa->find('count');
+			$qt_reg = $this->NattFixoPessoa->find('count' array('conditions' => array('trans' => null)));
 
 			/**
 			* Adiciona a flag 'transf' nas tabelas que serao importadas
@@ -143,7 +143,10 @@ echo $nombre_format_francais;
 
 // $i=0;
 			do{
-
+				/**
+				* Verifica se a chave do modulo de importacao esta ativa
+				*/
+				$this->Settings->active('landlines');
 
 				/**
 				* Carrega o proximo registro das tabelas de pessoa, telefone e endereco q ainda nao foram importado
