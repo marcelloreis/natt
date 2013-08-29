@@ -1,5 +1,5 @@
 <?php
-App::uses('AppModel', 'Model');
+App::uses('AppModelImport', 'Model');
 /**
  * NattFixoPessoa Model
  *
@@ -17,7 +17,7 @@ App::uses('AppModel', 'Model');
  * @property Country $Country
  * @property City $City
  */
-class NattFixoPessoa extends AppModel {
+class NattFixoPessoa extends AppModelImport {
 	public $useTable = false;
 	public $useDbConfig = 'natt';
 	public $primaryKey = 'CPF_CNPJ';
@@ -32,34 +32,50 @@ class NattFixoPessoa extends AppModel {
         )
     );
 
-    public function next(){
-    	$pessoa = $this->find('first', array(
-    		'recursive' => '-1',
-    		'conditions' => array(
-    			'CPF_CNPJ !=' => '00000000000000000000',
-    			'transf' => null
-    			),
-    		'order' => array('CPF_CNPJ' => 'ASC')
+    public function next($indice, $size, $uf){
+    	$map = $this->find('all', array(
+            'recursive' => '-1',
+            'fields' => array(
+                'NattFixoPessoa.CPF_CNPJ',
+                'NattFixoPessoa.NOME_RAZAO',
+                'NattFixoPessoa.MAE',
+                'NattFixoPessoa.SEXO',
+                'NattFixoPessoa.DT_NASCIMENTO',
+                'NattFixoTelefone.TELEFONE',
+                'NattFixoTelefone.CEP',
+                'NattFixoTelefone.COMPLEMENTO',
+                'NattFixoTelefone.NUMERO',
+                'NattFixoTelefone.DATA_ATUALIZACAO',
+                'NattFixoEndereco.RUA',
+                'NattFixoEndereco.NOME_RUA',
+                'NattFixoEndereco.BAIRRO',
+                'NattFixoEndereco.CIDADE',
+                'NattFixoEndereco.UF',
+                'NattFixoEndereco.CEP',
+                ),
+            'joins' => array(
+                array(
+                    'table' => "TELEFONES_{$uf}",
+                    'alias' => 'NattFixoTelefone',
+                    'type' => 'inner',
+                    'conditions' => array(
+                        'NattFixoPessoa.CPF_CNPJ = NattFixoTelefone.CPF_CNPJ',
+                                )
+                    ),
+                array(
+                    'table' => "ENDERECO_{$uf}",
+                    'alias' => 'NattFixoEndereco',
+                    'type' => 'inner',
+                    'conditions' => array(
+                        'NattFixoTelefone.COD_END = NattFixoEndereco.COD_END',
+                                )
+                    )
+                ),
+            'order' => array(
+                'NattFixoPessoa.CPF_CNPJ',
+                ),
+    		'limit' => "{$indice},{$size}",
     		));
-    	$map['pessoa'] = $pessoa['NattFixoPessoa'];
-
-    	$telefone = $this->NattFixoTelefone->find('default_all', array(
-    		'recursive' => '-1',
-    		'conditions' => array('CPF_CNPJ' => $pessoa['NattFixoPessoa']['CPF_CNPJ'])
-    		));
-
-    	if(count($telefone)){
-	    	foreach ($telefone as $k => $v) {
-		    	$endereco = $this->NattFixoTelefone->NattFixoEndereco->find('first', array(
-		    		'recursive' => '-1',
-		    		'conditions' => array('COD_END' => $v['NattFixoTelefone']['COD_END'])
-		    		));
-	    		$map['telefone'][$k] = $v['NattFixoTelefone'];
-	    		$map['telefone'][$k]['endereco'] = $endereco['NattFixoEndereco'];
-			}
-    	}
-
-    	$this->offset($map['pessoa']['CPF_CNPJ']);
 
 		return $map;    	
     }
@@ -70,24 +86,4 @@ class NattFixoPessoa extends AppModel {
     		array('NattFixoPessoa.CPF_CNPJ' => $doc)
     	);
     }
-
-	/**
-	* Método find
-	* Consultas o banco de dados e retorna um array de resultados.
-	*
-	* @override Metodo Model.find
-	* @param string $type tipod de operacoes (all / first / count / neighbors / list / threaded)
-	* @param array $query parametros de busca (conditions / fields / joins / limit / offset / order / page / group / callbacks)
-	* @return array Array de dados, ou Null em caso de falha.
-	*/
-	function find($type=null, $params=array()) {
-		if(!strstr($type, 'default_')){
-			$params['conditions']['AND']['NattFixoPessoa.CPF_CNPJ !='] = '00000000000000';
-		}
-		$type = str_replace('default_', '', $type);
-
-		//@override
-		return parent::find($type, $params);
-	}	    
-	
 }

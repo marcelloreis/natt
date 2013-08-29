@@ -1,0 +1,107 @@
+Carrega o proximo registro das tabelas de pessoa, telefone e endereco q ainda nao foram importado	100912	0.13315149705100404
+Calcula o total de registros que sera importado															1	0.031816005706787
+Trata os dados do endereço para a importacao														687807	0.0033366165879750572
+Executa a importacao da tabela Entity																100912	0.003167480898958125
+Comita todas as transacoes realizadas																229269	0.0017315230674822355
+Executa a importacao do telefone																	229269	0.0015565170647827418
+Executa a importacao do CEP																			229269	0.0010828804635249318
+Verifica se a chave do modulo de importacao esta ativa												100912	0.0008840401033336772
+Trata os dados da entidade para a importacao														100912	0.0002789647993694419
+Trata os dados o telefone para a importacao															229269	0.00014473895287777765
+Trata os dados do CEP para a importacao																229269	0.000024045530056100602
+Carrega todos os id coletados ate o momento															229269	0.000012990774470936427
+
+2013-08-16 03:59:28 ini
+2013-08-16 09:54:36 end
+inserts	100912
+~280/min
+
+
+
+
+Carrega o proximo registro das tabelas de pessoa, telefone e endereco q ainda nao foram importado	31069	0.04075405277610842
+Calcula o total de registros que sera importado															1	0.034370899200439
+Trata os dados do endereço para a importacao														159237	0.0037349472368587086
+Executa a importacao da tabela Entity																31069	0.0032466032226551697
+Executa a importacao do telefone																	53079	0.0023236207971558684
+Comita todas as transacoes realizadas																53079	0.001971023295957404
+Executa a importacao do CEP																			53079	0.001301499565134717
+Verifica se a chave do modulo de importacao esta ativa												31069	0.0010146806420340323
+Trata os dados da entidade para a importacao														31069	0.0009809846662263337
+Trata os dados o telefone para a importacao															53079	0.0001823262412460161
+Trata os dados do CEP para a importacao																53079	0.000032965443717743667
+Carrega todos os id coletados ate o momento															53079	0.00001477441920855744
+
+2013-08-16 19:04:45 ini
+2013-08-16 20:14:06 end
+inserts 31069
+~485/min
+
+
+
+
+Carrega o proximo registro das tabelas de pessoa, telefone e endereco q ainda nao foram importado	29963	0.03548581417255486
+Trata os dados do endereço para a importacao														154530	0.0031695560692182553
+Executa a importacao da tabela Entity																29963	0.0029829805971437248
+Executa a importacao do telefone																	51510	0.0020076367536162295
+Comita todas as transacoes realizadas																51510	0.0016565821282355862
+Executa a importacao do CEP																			51510	0.0011892956267327067
+Verifica se a chave do modulo de importacao esta ativa												29963	0.0010826918771921568
+Trata os dados da entidade para a importacao														29963	0.0001971155581095387
+Trata os dados o telefone para a importacao															51510	0.00010236013146239192
+Trata os dados do CEP para a importacao																51510	0.00002702414191039968
+Carrega todos os id coletados ate o momento															51510	0.00001212288814478767
+
+2013-08-17 15:50:39 ini
+2013-08-17 16:51:52 and
+~491/min
+
+Carrega o proximo registro das tabelas de pessoa, telefone e endereco q ainda nao foram importado	19413	0.022062676082971272
+Trata os dados do endereço para a importacao														106137	0.0030944509858539765
+Executa a importacao da tabela Entity																19413	0.0030659209298416956
+Executa a importacao do telefone																	35379	0.001961733441129245
+Comita todas as transacoes realizadas																35379	0.0015877014051685534
+Verifica se a chave do modulo de importacao esta ativa												19413	0.0011418869265361455
+Executa a importacao do CEP																			35379	0.001095796029682753
+Trata os dados da entidade para a importacao														19413	0.0002162783565805186
+Trata os dados o telefone para a importacao															35379	0.00007552049169370853
+Trata os dados do CEP para a importacao																35379	0.00002725105692140156
+Carrega todos os id coletados ate o momento															35379	0.000011688622636109555
+
+
+
+Carrega o proximo registro das tabelas de pessoa, telefone e endereco q ainda nao foram importado	232377	0.22103488806074545
+Executa a importacao da tabela Entity																232377	0.004109108092571197
+Trata os dados do endereço para a importacao														1744752	0.003420024140310299
+Comita todas as transacoes realizadas																581584	0.0024846932590999854
+Executa a importacao do CEP																			581584	0.002346941191506204
+Executa a importacao do telefone																	581584	0.0019840945770082693
+Verifica se a chave do modulo de importacao esta ativa												232377	0.0010736386499371378
+Trata os dados da entidade para a importacao														232377	0.00011251155344852024
+Trata os dados o telefone para a importacao															581584	0.00006523736487615846
+Trata os dados do CEP para a importacao																581584	0.00002632634090870236
+Carrega todos os id coletados ate o momento															581584	0.000011966510544997592
+
+
+
+Carrega o proximo registro das tabelas de pessoa, telefone e endereco q ainda nao foram importado	8	60.26913014054375
+Executa a importacao da tabela Entity															122641	0.0826056885696554
+Comita todas as transacoes realizadas															311368	0.04269320115759838
+Trata os dados do endereço para a importacao													322641	0.02689696953098406
+Executa a importacao do telefone																140598	0.017159399291824945
+Executa a importacao do CEP																		144720	0.0030555407519232444
+Trata os dados o telefone para a importacao														140598	0.0028660876202982483
+Verifica se a chave do modulo de importacao esta ativa											311370	0.00127226882163594
+Trata os dados da entidade para a importacao													122641	0.0002588155071506044
+Trata os dados do CEP para a importacao															144720	0.00004482042433610603
+Carrega todos os id coletados ate o momento														219659	0.000030007757734688298
+
+
+
+select import_entities.name, import_entities.mother, import_entities.gender, import_entities.birthday, import_landlines.tel_full, import_addresses.city_id, import_addresses.city, import_addresses.street, import_addresses.number, import_addresses.neighborhood, import_entities_landlines_addresses.year
+from import_entities
+join import_entities_landlines_addresses on import_entities_landlines_addresses.entity_id = import_entities.id
+join import_landlines on import_landlines.id = import_entities_landlines_addresses.landline_id
+join import_addresses on import_addresses.id = import_entities_landlines_addresses.address_id
+join import_zipcodes on import_zipcodes.id = import_addresses.zipcode_id
+where import_zipcodes.code = 29168450;

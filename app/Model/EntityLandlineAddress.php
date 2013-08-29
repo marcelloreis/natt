@@ -18,5 +18,5 @@ App::uses('AppModel', 'Model');
  * @property City $City
  */
 class EntityLandlineAddress extends AppModel {
-	public $useTable = 'entities_landlines_addresses';
+	public $useTable = 'import_entities_landlines_addresses';
 }

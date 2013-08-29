@@ -1,5 +1,5 @@
 <?php
-App::uses('AppModel', 'Model');
+App::uses('AppModelImport', 'Model');
 /**
  * NattFixoTelefone Model
  *
@@ -17,7 +17,7 @@ App::uses('AppModel', 'Model');
  * @property Country $Country
  * @property City $City
  */
-class NattFixoTelefone extends AppModel {
+class NattFixoTelefone extends AppModelImport {
 	/**
 	* O atributo $useTable sera carregado em tempo de execucao poi varia por estado
 	*/

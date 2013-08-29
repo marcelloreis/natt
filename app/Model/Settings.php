@@ -31,10 +31,11 @@ class Settings extends AppModel {
 			$content .= "###################################################################\n";
 			$content .= "Time: " . date('Y/m/d H:i:s') . "\n";
 			$content .= "===================================================================\n";
-			$content .= "Importação pausada.\n";
+			$content .= "Importacao pausada.\n";
 			$content .= "===================================================================\n";
 
-			echo $content;			
+			echo $content;		
+			die;	
 		}
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Address Model
+ * Timing Model
  *
  * Esta classe é responsável ​​pela gestão de quase tudo o que acontece a respeito do(a) Estado, 
  * é responsável também pela validação dos seus dados.
@@ -12,11 +12,8 @@ App::uses('AppModel', 'Model');
  * @link          http://www.nasza.com.br/ Nasza(tm) Project
  * @package       app.Model
  *
- * Address Model
- *
- * @property Country $Country
- * @property City $City
+ * Timing Model
  */
-class Address extends AppModel {
-	public $useTable = 'import_addresses';
+class Timing extends AppModel {
+	public $useTable = '_timing';
 }

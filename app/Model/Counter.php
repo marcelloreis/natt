@@ -13,9 +13,6 @@ App::uses('AppModel', 'Model');
  * @package       app.Model
  *
  * Counter Model
- *
- * @property Country $Country
- * @property City $City
  */
 class Counter extends AppModel {
 	public $useTable = '_counter';
