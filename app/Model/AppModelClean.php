@@ -31,5 +31,5 @@ App::uses('Model', 'Model');
  *
  * @package       app.Model
  */
-class AppModelImport extends Model {
+class AppModelClean extends Model {
 }

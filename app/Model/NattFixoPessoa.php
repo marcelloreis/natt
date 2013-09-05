@@ -1,5 +1,5 @@
 <?php
-App::uses('AppModelImport', 'Model');
+App::uses('AppModelClean', 'Model');
 /**
  * NattFixoPessoa Model
  *
@@ -17,7 +17,7 @@ App::uses('AppModelImport', 'Model');
  * @property Country $Country
  * @property City $City
  */
-class NattFixoPessoa extends AppModelImport {
+class NattFixoPessoa extends AppModelClean {
 	public $useTable = false;
 	public $useDbConfig = 'natt';
 	public $primaryKey = 'CPF_CNPJ';
