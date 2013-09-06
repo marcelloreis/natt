@@ -258,6 +258,12 @@ class ImportComponent extends Component {
 			* Remove qualquer caracter do nome que nao seja letras
 			*/
 			$name = ucwords(strtolower(trim(preg_replace('/[^a-zA-Z ]/si', '', $name))));
+
+			/**
+			* Altera para minusculas todas as palavras com menos de 4 letrase que estejam no meio do nome
+			* todas as preposicoes serao alteradas  de | do | da | dos | das 
+			*/
+			$name = preg_replace('/( [a-z]{1,3} )/si', ' ' . strtolower("$1") . ' ', $name);			
 		}
 
 
@@ -307,10 +313,11 @@ class ImportComponent extends Component {
 					*/
 					if(in_array($first_name, $this->male_names)){
 						$gender = MALE;
+
+					/**
+					* Verifica se o primeiro nome é feminino
+					*/
 					}else if(in_array($first_name, $this->female_names)){
-						/**
-						* Verifica se o primeiro nome é feminino
-						*/
 						$gender = FEMALE;
 					}
 
@@ -519,7 +526,7 @@ class ImportComponent extends Component {
 		/**
 		* Altera todas as iniciais para maisuculo
 		*/
-		$city = ucwords(strtolower($city));
+		$city = $this->clearName($city);
 
 		return $city;
 	}
@@ -541,7 +548,7 @@ class ImportComponent extends Component {
 		/**
 		* Formata o nome com as primeiras letras em maiusculo
 		*/
-		$neighborhood = ucwords(strtolower($neighborhood));
+		$neighborhood = $this->clearName($neighborhood);
 
 
 		return $neighborhood;
@@ -564,8 +571,14 @@ class ImportComponent extends Component {
 		/**
 		* Formata o nome com as primeiras letras em maiusculo
 		*/
-		$complement = ucwords(strtolower($complement));
+		$complement = $this->clearName($complement);
 
+		/**
+		* Seta o complemento como null caso nao tenho nenhuma infomracao
+		*/
+		if(is_null($complement) || empty($complement) || trim($complement) == ''){
+			$complement = null;
+		}
 
 		return $complement;
 	}	
@@ -582,75 +595,75 @@ class ImportComponent extends Component {
 		/**
 		* Aplica regras para tentar extrair o logrdoura
 		*/
-		if(preg_match('/^al\.? .*|alameda .*/si', strtolower($type_address))){
+		if(preg_match('/^al\.? ?.*|alameda .*/si', strtolower($type_address))){
 			$type = 'Alameda';
 		}
 		
-		if(preg_match('/^av\.? .*|avenida .*/si', strtolower($type_address))){
+		if(preg_match('/^av\.? ?.*|avenida .*/si', strtolower($type_address))){
 			$type = 'Avenida';
 		}
 		
-		if(preg_match('/^b[c]?\.? .*|beco .*/si', strtolower($type_address))){
+		if(preg_match('/^b[c]?\.? ?.*|beco .*/si', strtolower($type_address))){
 			$type = 'Beco';
 		}
 		
-		if(preg_match('/^cal[cç]?\.? .*|cal[cç]ada .*/si', strtolower($type_address))){
+		if(preg_match('/^cal[cç]?\.? ?.*|cal[cç]ada .*/si', strtolower($type_address))){
 			$type = 'Calçada';
 		}
 		
-		if(preg_match('/^con[d]?\.? .*|condom[ií]nio .*/si', strtolower($type_address))){
+		if(preg_match('/^con[d]?\.? ?.*|condom[ií]nio .*/si', strtolower($type_address))){
 			$type = 'Condomínio';
 		}
 		
-		if(preg_match('/^cj\.? .*|conj\.? .*|conju\.? .*|conjunto .*/si', strtolower($type_address))){
+		if(preg_match('/^cj\.? ?.*|conj\.? ?.*|conju\.? ?.*|conjunto .*/si', strtolower($type_address))){
 			$type = 'Conjunto';
 		}
 		
-		if(preg_match('/^esc\.? .*|esd\.? .*|escad\.? .*|escadaria .*/si', strtolower($type_address))){
+		if(preg_match('/^esc\.? ?.*|esd\.? ?.*|escad\.? ?.*|escadaria .*/si', strtolower($type_address))){
 			$type = 'Escadaria';
 		}
 		
-		if(preg_match('/^es[t]?\.? .*|estrada .*/si', strtolower($type_address))){
+		if(preg_match('/^es[t]?\.? ?.*|estrada .*/si', strtolower($type_address))){
 			$type = 'Estrada';
 		}
 		
-		if(preg_match('/^ga[l]?\.? .*|galeria .*/si', strtolower($type_address))){
+		if(preg_match('/^ga[l]?\.? ?.*|galeria .*/si', strtolower($type_address))){
 			$type = 'Galeria';
 		}
 		
-		if(preg_match('/^jd\.? .*|jardim .*/si', strtolower($type_address))){
+		if(preg_match('/^jd\.? ?.*|jardim .*/si', strtolower($type_address))){
 			$type = 'Jardim';
 		}
 		
-		if(preg_match('/^l[g]?\.? .*|largo .*/si', strtolower($type_address))){
+		if(preg_match('/^l[g]?\.? ?.*|largo .*/si', strtolower($type_address))){
 			$type = 'Largo';
 		}
 		
-		if(preg_match('/^p[cç]?[a]??\.? .*|pra[cç]a .*/si', strtolower($type_address))){
+		if(preg_match('/^p[cç]?[a]??\.? ?.*|pra[cç]a .*/si', strtolower($type_address))){
 			$type = 'Praça';
 		}
 		
-		if(preg_match('/^r\.? .*|rua .*/si', strtolower($type_address))){
+		if(preg_match('/^r\.? ?.*|rua .*/si', strtolower($type_address))){
 			$type = 'Rua';
 		}
 		
-		if(preg_match('/^rod\.? .*|rodovia .*/si', strtolower($type_address))){
+		if(preg_match('/^rod\.? ?.*|rodovia .*/si', strtolower($type_address))){
 			$type = 'Rodovia';
 		}
 		
-		if(preg_match('/^tv\.? .*|travessa .*/si', strtolower($type_address))){
+		if(preg_match('/^tv\.? ?.*|travessa .*/si', strtolower($type_address))){
 			$type = 'Travessa';
 		}
 		
-		if(preg_match('/^trv\.? .*|trevo .*/si', strtolower($type_address))){
+		if(preg_match('/^trv\.? ?.*|trevo .*/si', strtolower($type_address))){
 			$type = 'Trevo';
 		}
 		
-		if(preg_match('/^vl\.? .*|vila .*/si', strtolower($type_address))){
+		if(preg_match('/^vl\.? ?.*|vila .*/si', strtolower($type_address))){
 			$type = 'Vila';
 		}
 
-		if(preg_match('/^vd\.? .*|viaduto .*/si', strtolower($type_address))){
+		if(preg_match('/^vd\.? ?.*|viaduto .*/si', strtolower($type_address))){
 			$type = 'Viaduto';
 		}
 
@@ -677,24 +690,24 @@ class ImportComponent extends Component {
 		* Remove qualquer combinacao de logradouro que encontrar no endereço
 		*/
 		$street = preg_replace('/^bairro /si', '', $street);
-		$street = preg_replace('/^al\.? |alameda /si', '', $street);
-		$street = preg_replace('/^av\.? |avenida /si', '', $street);
-		$street = preg_replace('/^b[c]?\.? |beco /si', '', $street);
-		$street = preg_replace('/^cal[cç]?\.? |cal[cç]ada /si', '', $street);
-		$street = preg_replace('/^con[d]?\.? |condom[ií]nio /si', '', $street);
-		$street = preg_replace('/^cj\.? |conj\.? |conju\.? |conjunto /si', '', $street);
-		$street = preg_replace('/^esc\.? |esd\.? |escad\.? |escadaria /si', '', $street);
-		$street = preg_replace('/^es[t]?\.? |estrada /si', '', $street);
-		$street = preg_replace('/^ga[l]?\.? |galeria /si', '', $street);
-		$street = preg_replace('/^jd\.? |jardim /si', '', $street);
-		$street = preg_replace('/^l[g]?\.? |largo /si', '', $street);
-		$street = preg_replace('/^p[cç]?[a]?\.? |pra[cç]a /si', '', $street);
-		$street = preg_replace('/^r\.? |rua /si', '', $street);
-		$street = preg_replace('/^rod\.? |rodovia /si', '', $street);
-		$street = preg_replace('/^tv\.? |travessa /si', '', $street);
-		$street = preg_replace('/^trv\.? |trevo /si', '', $street);
-		$street = preg_replace('/^vl\.? |vila /si', '', $street);
-		$street = preg_replace('/^vd\.? |viaduto /si', '', $street);
+		$street = preg_replace('/^al\.? ?|alameda /si', '', $street);
+		$street = preg_replace('/^av\.? ?|avenida /si', '', $street);
+		$street = preg_replace('/^b[c]?\.? ?|beco /si', '', $street);
+		$street = preg_replace('/^cal[cç]?\.? ?|cal[cç]ada /si', '', $street);
+		$street = preg_replace('/^con[d]?\.? ?|condom[ií]nio /si', '', $street);
+		$street = preg_replace('/^cj\.? ?|conj\.? ?|conju\.? ?|conjunto /si', '', $street);
+		$street = preg_replace('/^esc\.? ?|esd\.? ?|escad\.? ?|escadaria /si', '', $street);
+		$street = preg_replace('/^es[t]?\.? ?|estrada /si', '', $street);
+		$street = preg_replace('/^ga[l]?\.? ?|galeria /si', '', $street);
+		$street = preg_replace('/^jd\.? ?|jardim /si', '', $street);
+		$street = preg_replace('/^l[g]?\.? ?|largo /si', '', $street);
+		$street = preg_replace('/^p[cç]?[a]?\.? ?|pra[cç]a /si', '', $street);
+		$street = preg_replace('/^r\.? ?|rua /si', '', $street);
+		$street = preg_replace('/^rod\.? ?|rodovia /si', '', $street);
+		$street = preg_replace('/^tv\.? ?|travessa /si', '', $street);
+		$street = preg_replace('/^trv\.? ?|trevo /si', '', $street);
+		$street = preg_replace('/^vl\.? ?|vila /si', '', $street);
+		$street = preg_replace('/^vd\.? ?|viaduto /si', '', $street);
 		$street = preg_replace('/cento e um/si', '101', $street);
 
 		/**
@@ -715,7 +728,7 @@ class ImportComponent extends Component {
 		/**
 		* Formata o nome com as primeiras letras em maiusculo
 		*/
-		$street = ucwords(strtolower($street));
+		$street = $this->clearName($street);
 
 		return $street;
 	}
@@ -749,6 +762,14 @@ class ImportComponent extends Component {
 		* Remove tudo que nao for numero
 		*/
 		$street_number = preg_replace('/[^0-9]/', '', $street_number);
+
+		/**
+		* Seta o numero como null caso nao tenho nenhuma infomracao
+		*/
+		if(is_null($street_number) || empty($street_number) || trim($street_number) == ''){
+			$street_number = null;
+		}
+
 
 		return $street_number;
 	}
@@ -3477,7 +3498,7 @@ class ImportComponent extends Component {
 	/**
 	* carrega todos os nomes masculinos
 	*/
-	private function loadmalenames(){
+	private function loadMalenames(){
 		$this->male_names = array(
 				'aarao',
 				'abdenago',

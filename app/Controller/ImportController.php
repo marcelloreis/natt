@@ -524,6 +524,7 @@ class ImportController extends AppController {
 			'conditions' => array(
 				'zipcode_id' => $address['Address']['zipcode_id'],
 				'number' => $address['Address']['number'],
+				'complement' => $address['Address']['complement'],
 				// 'number NOT' => null,
 				)
 			));		
