@@ -18,5 +18,5 @@ App::uses('AppModel', 'Model');
  * @property City $City
  */
 class Zipcode extends AppModel {
-	public $useTable = 'import_zipcodes';
+	public $useTable = 'zipcodes';
 }

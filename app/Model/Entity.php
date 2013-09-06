@@ -18,5 +18,5 @@ App::uses('AppModel', 'Model');
  * @property City $City
  */
 class Entity extends AppModel {
-	public $useTable = 'import_entities';
+	public $useTable = 'entities';
 }

@@ -24,14 +24,6 @@ class NattFixoPessoa extends AppModelClean {
 	public $displayField = 'NOME_RAZAO';
 	public $order = 'NattFixoPessoa.CPF_CNPJ';
 
-	public $hasMany = array(
-        'NattFixoTelefone' => array(
-            'className' => 'NattFixoTelefone',
-            'foreignKey' => 'CPF_CNPJ',
-            'type' => 'inner'
-        )
-    );
-
     public function next($indice, $size, $uf){
     	$map = $this->find('all', array(
             'recursive' => '-1',
@@ -78,12 +70,5 @@ class NattFixoPessoa extends AppModelClean {
     		));
 
 		return $map;    	
-    }
-
-    public function offset($doc){
-    	$this->updateAll(
-    		array('NattFixoPessoa.transf' => true),
-    		array('NattFixoPessoa.CPF_CNPJ' => $doc)
-    	);
     }
 }

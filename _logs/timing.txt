@@ -98,10 +98,14 @@ Carrega todos os id coletados ate o momento														219659	0.00003000775773
 
 
 
-select import_entities.name, import_entities.mother, import_entities.gender, import_entities.birthday, import_landlines.tel_full, import_addresses.city_id, import_addresses.city, import_addresses.street, import_addresses.number, import_addresses.neighborhood, import_entities_landlines_addresses.year
-from import_entities
-join import_entities_landlines_addresses on import_entities_landlines_addresses.entity_id = import_entities.id
-join import_landlines on import_landlines.id = import_entities_landlines_addresses.landline_id
-join import_addresses on import_addresses.id = import_entities_landlines_addresses.address_id
-join import_zipcodes on import_zipcodes.id = import_addresses.zipcode_id
-where import_zipcodes.code = 29168450;
+Carrega o proximo registro das tabelas de pessoa, telefone e endereco q ainda nao foram importado	8	59.069749146699124
+Trata os dados do endereço para a importacao													1071270	0.2454795689448712
+Comita todas as transacoes realizadas															357090	0.0151240363604827
+Executa a importacao da tabela Entity															357090	0.0029507585059104554
+Executa a importacao do telefone																357090	0.0017275469502564381
+Executa a importacao do CEP																		357090	0.0014844005031564862
+Verifica se a chave do modulo de importacao esta ativa											357091	0.001393085056311352
+Trata os dados da entidade para a importacao													357090	0.00026654123128246656
+Trata os dados do CEP para a importacao															357090	0.00003966114462204811
+Trata os dados o telefone para a importacao														357090	0.000033511860828858484
+Carrega todos os id coletados ate o momento														357090	0.00002735164592872929

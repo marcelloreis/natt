@@ -100,9 +100,9 @@ class ImportController extends AppController {
 			/**
 			* Carrega os models com o nome das tabelas
 			*/
-			$this->NattFixoTelefone->useTable = $this->telefones_uf;
+			// $this->NattFixoTelefone->useTable = $this->telefones_uf;
 			$this->NattFixoPessoa->useTable = $this->pessoa_uf;
-			$this->NattFixoEndereco->useTable = $this->endereco_uf;
+			// $this->NattFixoEndereco->useTable = $this->endereco_uf;
 
 			/**
 			* Calcula o total de registros que sera importado
@@ -127,25 +127,24 @@ class ImportController extends AppController {
 			* Carrega os limites iniciais da importacao
 			*/
 			$indice = 0;
-			$this->Import->sizeReload = 50000;
+			$this->Import->sizeReload = 10000;
 
 			do{
 				/**
 				* Registra o recarregamento dos dados no log
 				*/
 				$this->Import->reloadCount();
-
-				/**
-				* Calcula o intervalo do proximo select q trara os dados para serem importados
-				*/
-				$indice+=$this->Import->sizeReload;
-
 				/**
 				* Carrega o proximo registro das tabelas de pessoa, telefone e endereco q ainda nao foram importado
 				*/
 				$this->Import->timing_ini(3, 'Carrega o proximo registro das tabelas de pessoa, telefone e endereco q ainda nao foram importado');
 				$entities = $this->NattFixoPessoa->next($indice, $this->Import->sizeReload, $this->uf);
 				$this->Import->timing_end();
+
+				/**
+				* Calcula o intervalo do proximo select q trara os dados para serem importados
+				*/
+				$indice+=$this->Import->sizeReload;
 
 				foreach ($entities as $k => $v) {
 					/**
@@ -194,7 +193,7 @@ class ImportController extends AppController {
 							'mother' => $this->Import->clearName($v['NattFixoPessoa']['MAE']),
 							'type' => $doc_type,
 							'gender' => $this->Import->getGender($v['NattFixoPessoa']['SEXO'], $doc_type, $v['NattFixoPessoa']['NOME_RAZAO']),
-							'birthday' => $this->Import->getBirthday($this->AppUtils->dt2br($v['NattFixoPessoa']['DT_NASCIMENTO'])),
+							'birthday' => $this->Import->getBirthday($v['NattFixoPessoa']['DT_NASCIMENTO']),
 							'h1' => $hash['h1'],
 							'h2' => $hash['h2'],
 							'h3' => $hash['h3'],
@@ -346,7 +345,6 @@ class ImportController extends AppController {
 					$this->importAddress($data);
 					$this->Import->timing_end();
 
-					
 					/**
 					* Inicializa a transacao
 					*/
@@ -410,14 +408,18 @@ class ImportController extends AppController {
 		/**
 		* Verifica se a entidade que sera importada já existe na base de dados
 		*/
-		// $hasEntity = $this->Entity->find('first', array(
-		// 	'recursive' => '-1',
-		// 	'conditions' => array('doc' => $entity['Entity']['doc'])
-		// 	));				
+		$hasEntity = array();
+		if ($entity['Entity']['doc'] != '00000000000' && $entity['Entity']['doc'] != '00000000000000') {
+			$hasEntity = $this->Entity->find('first', array(
+				'recursive' => '-1',
+				'conditions' => array('doc' => $entity['Entity']['doc'])
+				));				
+		 }
 
-		// if(count($hasEntity)){
-		// 	$this->Entity->id = $hasEntity['Entity']['id'];
-		// }else{
+
+		if(count($hasEntity)){
+			$this->Entity->id = $hasEntity['Entity']['id'];
+		}else{
 			$this->Entity->create($entity);
 			if($this->Entity->save()){
 				$this->Import->success('entities');
@@ -426,7 +428,7 @@ class ImportController extends AppController {
 				$this->Import->fail('entities');
 				$this->Import->__log("Falha ao importar a entidade", $this->uf, false, $this->Entity->useTable, null, $entity['Entity']['doc'], $this->db['entity']->error);
 			}
-		// }	
+		}	
 	}
 
 	/**
@@ -446,16 +448,16 @@ class ImportController extends AppController {
 			/**
 			* Verifica se o telefone que sera importado já existe na base de dados
 			*/
-			// $hasLandline = $this->Landline->find('first', array(
-			// 	'recursive' => '-1',
-			// 	'conditions' => array(
-			// 		'tel_full' => $landline['Landline']['tel_full'],
-			// 		)
-			// 	));		
+			$hasLandline = $this->Landline->find('first', array(
+				'recursive' => '-1',
+				'conditions' => array(
+					'tel_full' => $landline['Landline']['tel_full'],
+					)
+				));		
 
-			// if(count($hasLandline)){
-			// 	$this->Landline->id = $hasLandline['Landline']['id'];
-			// }else{
+			if(count($hasLandline)){
+				$this->Landline->id = $hasLandline['Landline']['id'];
+			}else{
 				$this->Landline->create($landline);
 				if($this->Landline->save()){
 					$this->Import->success('landlines');
@@ -464,7 +466,7 @@ class ImportController extends AppController {
 					$this->Import->fail('landlines');
 					$this->Import->__log("Falha ao importar o telefone.", $this->uf, false, $this->Landline->useTable, null, $landline['Landline']['tel_full'], $this->db['Landline']->error);
 				}
-			// }	
+			}	
 		}
 	}
 
@@ -485,16 +487,16 @@ class ImportController extends AppController {
 			/**
 			* Verifica se o telefone que sera importado já existe na base de dados
 			*/
-			// $hasZipcode = $this->Zipcode->find('first', array(
-			// 	'recursive' => '-1',
-			// 	'conditions' => array(
-			// 		'code' => $zipcode['Zipcode']['code'],
-			// 		)
-			// 	));		
+			$hasZipcode = $this->Zipcode->find('first', array(
+				'recursive' => '-1',
+				'conditions' => array(
+					'code' => $zipcode['Zipcode']['code'],
+					)
+				));		
 
-			// if(count($hasZipcode)){
-			// 	$this->Zipcode->id = $hasZipcode['Zipcode']['id'];
-			// }else{
+			if(count($hasZipcode)){
+				$this->Zipcode->id = $hasZipcode['Zipcode']['id'];
+			}else{
 				$this->Zipcode->create($zipcode);
 				if($this->Zipcode->save()){
 					$this->Import->success('zipcodes');
@@ -503,7 +505,7 @@ class ImportController extends AppController {
 					$this->Import->fail('zipcodes');
 					$this->Import->__log("Falha ao importar o CEP.", $this->uf, false, $this->Zipcode->useTable, null, $zipcode['Zipcode']['code_original'], $this->db['Zipcode']->error);
 				}
-			// }	
+			}	
 		}
 	}
 
@@ -517,19 +519,19 @@ class ImportController extends AppController {
 		/**
 		* Verifica se o telefone que sera importado já existe na base de dados
 		*/
-		// $hasAddress = $this->Address->find('first', array(
-		// 	'recursive' => '-1',
-		// 	'conditions' => array(
-		// 		'zipcode_id' => $address['Address']['zipcode_id'],
-		// 		'number' => $address['Address']['number'],
-		// 		// 'number NOT' => null,
-		// 		)
-		// 	));		
+		$hasAddress = $this->Address->find('first', array(
+			'recursive' => '-1',
+			'conditions' => array(
+				'zipcode_id' => $address['Address']['zipcode_id'],
+				'number' => $address['Address']['number'],
+				// 'number NOT' => null,
+				)
+			));		
 
 
-		// if(count($hasAddress)){
-		// 	$this->Address->id = $hasAddress['Address']['id'];
-		// }else{
+		if(count($hasAddress)){
+			$this->Address->id = $hasAddress['Address']['id'];
+		}else{
 			$this->Address->create($address);
 			if($this->Address->save()){
 				$this->Import->success('addresses');
@@ -538,7 +540,7 @@ class ImportController extends AppController {
 				$this->Import->fail('addresses');
 				$this->Import->__log("Falha ao importar o endereço.", $this->uf, false, $this->Address->useTable, null, $address['Address']['state_id'], $this->db['Address']->error);
 			}
-		// }	
+		}	
 	}
 
 	/**
@@ -553,34 +555,34 @@ class ImportController extends AppController {
 		*/
 		$hasCreated = false;
 
-		// if(
-		// 	(!empty($entityLandlineAddress['EntityLandlineAddress']['entity_id']) && $entityLandlineAddress['EntityLandlineAddress']['entity_id'] != '0')
-		// 	&& 
-		// 	(
-		// 		(!empty($entityLandlineAddress['EntityLandlineAddress']['landline_id']) && $entityLandlineAddress['EntityLandlineAddress']['landline_id'] != '0') 
-		// 		|| 
-		// 		(!empty($entityLandlineAddress['EntityLandlineAddress']['address_id']) && $entityLandlineAddress['EntityLandlineAddress']['address_id'] != '0'))
-		// 	){
+		if(
+			(!empty($entityLandlineAddress['EntityLandlineAddress']['entity_id']) && $entityLandlineAddress['EntityLandlineAddress']['entity_id'] != '0')
+			&& 
+			(
+				(!empty($entityLandlineAddress['EntityLandlineAddress']['landline_id']) && $entityLandlineAddress['EntityLandlineAddress']['landline_id'] != '0') 
+				|| 
+				(!empty($entityLandlineAddress['EntityLandlineAddress']['address_id']) && $entityLandlineAddress['EntityLandlineAddress']['address_id'] != '0'))
+			){
 
-		// 	/**
-		// 	* Verifica se a junção já existe
-		// 	*/
-		// 	$hasEntityLandlineAddress = $this->EntityLandlineAddress->find('first', array(
-		// 		'recursive' => '-1',
-		// 		'conditions' => array(
-		// 			'entity_id' => $entityLandlineAddress['EntityLandlineAddress']['entity_id'],
-		// 			'landline_id' => $entityLandlineAddress['EntityLandlineAddress']['landline_id'],
-		// 			'address_id' => $entityLandlineAddress['EntityLandlineAddress']['address_id'],
-		// 			'year' => $entityLandlineAddress['EntityLandlineAddress']['year'],
-		// 			)
-		// 		));	
+			/**
+			* Verifica se a junção já existe
+			*/
+			$hasEntityLandlineAddress = $this->EntityLandlineAddress->find('first', array(
+				'recursive' => '-1',
+				'conditions' => array(
+					'entity_id' => $entityLandlineAddress['EntityLandlineAddress']['entity_id'],
+					'landline_id' => $entityLandlineAddress['EntityLandlineAddress']['landline_id'],
+					'address_id' => $entityLandlineAddress['EntityLandlineAddress']['address_id'],
+					'year' => $entityLandlineAddress['EntityLandlineAddress']['year'],
+					)
+				));	
 
-		// }
+		}
 
 
-		// if(isset($hasEntityLandlineAddress) && count($hasEntityLandlineAddress)){
-		// 	$this->EntityLandlineAddress->id = $hasEntityLandlineAddress['EntityLandlineAddress']['id'];
-		// }else{
+		if(isset($hasEntityLandlineAddress) && count($hasEntityLandlineAddress)){
+			$this->EntityLandlineAddress->id = $hasEntityLandlineAddress['EntityLandlineAddress']['id'];
+		}else{
 			$this->EntityLandlineAddress->create($entityLandlineAddress);
 			$hasCreated = $this->EntityLandlineAddress->save(); 
 			if($hasCreated){
@@ -589,7 +591,7 @@ class ImportController extends AppController {
 				$this->Import->fail('entities_landlines_addresses');
 				$this->Import->__log("Falha ao importar os dados da tabela entities_landlines_addresses", $this->uf, false, $this->EntityLandlineAddress->useTable, $this->Entity->id);
 			}
-		// }	
+		}	
 
 		return $hasCreated;
 	}
