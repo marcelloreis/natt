@@ -107,7 +107,7 @@ class ImportController extends AppController {
 			/**
 			* Calcula o total de registros que sera importado
 			*/
-			$this->qt_reg = $this->NattFixoPessoa->find('count');
+			$this->qt_reg = $this->NattFixoPessoa->find('count', array('conditions' => array('NattFixoPessoa.CPF_CNPJ >' => '5716558747')));
 
 			/**
 			* Inicia o processo de importacao
@@ -134,12 +134,14 @@ class ImportController extends AppController {
 				* Registra o recarregamento dos dados no log
 				*/
 				$this->Import->reloadCount();
+
 				/**
 				* Carrega o proximo registro das tabelas de pessoa, telefone e endereco q ainda nao foram importado
 				*/
 				$this->Import->timing_ini(3, 'Carrega o proximo registro das tabelas de pessoa, telefone e endereco q ainda nao foram importado');
 				$entities = $this->NattFixoPessoa->next($indice, $this->Import->sizeReload, $this->uf);
 				$this->Import->timing_end();
+
 				/**
 				* Calcula o intervalo do proximo select q trara os dados para serem importados
 				*/
@@ -153,7 +155,9 @@ class ImportController extends AppController {
 					$this->Settings->active($this->action);
 					$this->Import->timing_end();
 
-
+debug($v['NattFixoPessoa']['DT_NASCIMENTO']);
+debug($this->Import->getBirthday($v['NattFixoPessoa']['DT_NASCIMENTO']));
+die;
 					/**
 					* Verifica se nenhuma das sequências invalidas abaixo 
 					* foi digitada. Caso afirmativo, retorna falso

@@ -202,7 +202,7 @@ class ImportComponent extends Component {
 	/**
 	* Retorna o tipo do documento passado por parametro
 	*/
-	public function getTypeDoc($doc, $name=null){
+	public function getTypeDoc($doc, $name=null, $mother_name=null){
 		/**
 		* Inicializa a variavel $type como tipo invalido
 		*/
@@ -346,7 +346,7 @@ class ImportComponent extends Component {
 		/**
 		* Verifica se a data é consistente
 		*/
-		if(!preg_match('%[12][0-9]{3}-[01][0-9]-[0-3][0-9]/$%si', $date)){
+		if(!preg_match('/[12][0-9]{3}-[01][0-9]-[0-3][0-9]$/si', $date)){
 			$date = null;
 		}
 
@@ -1255,25 +1255,30 @@ class ImportComponent extends Component {
 	    static $startTime;
 	    static $date_begin;
 
-	    if($done > $total){
-		    /**
-		    * Desabilita as verificacoes de chave estrangeira
-		    */
-		    $map = $this->Log->query('SET foreign_key_checks = 1');
-		    /**
-		    * Desabilita as verificacoes de chave unica
-		    */
-		    $map = $this->Log->query('SET unique_checks = 1');
-		    /**
-		    * Desabilita o autocommit
-		    */
-		    $map = $this->Log->query('SET autocommit = 1');
-		    /**
-		    * Habilita o cache das consultas
-		    */
-		    $map = $this->Log->query('SET query_cache_type = 0');
+	    $status_bar="\n[";
 
-	    	return false;
+	    if($done > $total){
+	    	$status_bar="\n########## IMPORTACAO ENCERRADA ##########";
+	    	$status_bar.="\n[";
+
+		    // /**
+		    // * Desabilita as verificacoes de chave estrangeira
+		    // */
+		    // $map = $this->Log->query('SET foreign_key_checks = 1');
+		    // /**
+		    // * Desabilita as verificacoes de chave unica
+		    // */
+		    // $map = $this->Log->query('SET unique_checks = 1');
+		    // /**
+		    // * Desabilita o autocommit
+		    // */
+		    // $map = $this->Log->query('SET autocommit = 1');
+		    // /**
+		    // * Habilita o cache das consultas
+		    // */
+		    // $map = $this->Log->query('SET query_cache_type = 0');
+
+	    	// return false;
 	    } 
 
 	    if(empty($startTime)){
@@ -1288,7 +1293,6 @@ class ImportComponent extends Component {
 	    $perc=(double)($done/$total);
 	    $bar=floor($perc*$size);
 
-	    $status_bar="\r[";
 	    $status_bar.=str_repeat("=", $bar);
 
 	    if($bar<$size){

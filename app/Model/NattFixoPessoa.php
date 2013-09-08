@@ -63,7 +63,9 @@ class NattFixoPessoa extends AppModelClean {
                                 )
                     )
                 ),
+            'conditions' => array('NattFixoPessoa.CPF_CNPJ' => '10153108770') ,
             // 'conditions' => array('NattFixoPessoa.CPF_CNPJ' => '00445928760') ,
+            // 'conditions' => array('NattFixoPessoa.CPF_CNPJ >' => '5716558747') ,
             'order' => array(
                 'NattFixoPessoa.CPF_CNPJ',
                 ),
