@@ -225,17 +225,25 @@ class ImportComponent extends Component {
 				$type = TP_AMBIGUO;
 
 				/**
-				* Tenta descobrir se o documento é CNPJ atraves do nome
+				* Tenta descobrir se o documento é CPF verificando se existe o nome da mae
 				*/
-				if($name){
-					if(preg_match('/[ _-]ltda$|[ _-]me$|[ _-]sa$|[ _-]exp$|[ _-]s\/a$/si', strtolower($this->clearName($name)))){
-						$type = TP_CNPJ;
-					}
+				if($mother_name && $mother_name != ''){
+					$type = TP_CPF;
+				}else{
+					/**
+					* Tenta descobrir se o documento é CNPJ atraves do nome
+					*/
+					if($name){
+						if(preg_match('/[ _-]ltda$|[ _-]me$|[ _-]sa$|[ _-]exp$|[ _-]s\/a$/si', strtolower($this->clearName($name)))){
+							$type = TP_CNPJ;
+						}
 
-					if(preg_match('/advogados|associados|industria|comercio|artigos|artigos/si', strtolower($this->clearName($name)))){
-						$type = TP_CNPJ;
+						if(preg_match('/advogados|associados|industria|comercio|artigos|artigos/si', strtolower($this->clearName($name)))){
+							$type = TP_CNPJ;
+						}
 					}
 				}
+
 			}else{
 				$type = TP_CNPJ;
 			}
@@ -247,7 +255,7 @@ class ImportComponent extends Component {
 	/**
 	* Trata e limpa o nome passado por parametro
 	*/
-	public function clearName($name){
+	public function clearName($name, $clearNumber=true){
 		/**
 		* Verifica se o texto é consistente
 		*/
@@ -257,13 +265,16 @@ class ImportComponent extends Component {
 			/**
 			* Remove qualquer caracter do nome que nao seja letras
 			*/
-			$name = ucwords(strtolower(trim(preg_replace('/[^a-zA-Z ]/si', '', $name))));
+			$name = ucwords(strtolower(trim($name)));
+			if($clearNumber){
+				$name = trim(preg_replace('/[^a-zA-Z ]/si', '', $name));
+			}
 
 			/**
 			* Altera para minusculas todas as palavras com menos de 4 letrase que estejam no meio do nome
 			* todas as preposicoes serao alteradas  de | do | da | dos | das 
 			*/
-			$name = preg_replace('/( [a-z]{1,3} )/si', ' ' . strtolower("$1") . ' ', $name);			
+			$name = preg_replace('/( [a-z]{1,3} )/ie', 'strtolower("$1")', $name);			
 		}
 
 
@@ -557,11 +568,32 @@ class ImportComponent extends Component {
 	/**
 	* Trata o complemento do endereço
 	*/
-	public function getComplement($complement){
+	public function getComplement($complement, $street=null){
 		/**
 		* Remove tudo que nao for letas e numeros do nome do bairro
 		*/
 		$complement = preg_replace('/[^a-z0-9 ]/si', '', strtolower($complement));
+
+		/**
+		* Caso o numero nao tenha sido carregado ainda, tenta carrega-lo a partir do nome da rua
+		*/
+		if(!$complement && $street){
+			if(preg_match('/(ap ?.*)/si', $street, $vet)){
+				$complement = $vet[1];
+			}
+			if(preg_match('/(ed ?.*)/si', $street, $vet)){
+				$complement = $vet[1];
+			}
+			if(preg_match('/(edf ?.*)/si', $street, $vet)){
+				$complement = $vet[1];
+			}
+			if(preg_match('/(q ?.*)/si', $street, $vet)){
+				$complement = $vet[1];
+			}
+			if(preg_match('/(qd ?.*)/si', $street, $vet)){
+				$complement = $vet[1];
+			}
+		}		
 
 		/**
 		* Remove abreviacoes
@@ -571,7 +603,7 @@ class ImportComponent extends Component {
 		/**
 		* Formata o nome com as primeiras letras em maiusculo
 		*/
-		$complement = $this->clearName($complement);
+		$complement = $this->clearName($complement, false);
 
 		/**
 		* Seta o complemento como null caso nao tenho nenhuma infomracao
@@ -595,75 +627,75 @@ class ImportComponent extends Component {
 		/**
 		* Aplica regras para tentar extrair o logrdoura
 		*/
-		if(preg_match('/^al\.? ?.*|alameda .*/si', strtolower($type_address))){
+		if(preg_match('/^al\.?.*|alameda .*/si', strtolower($type_address))){
 			$type = 'Alameda';
 		}
 		
-		if(preg_match('/^av\.? ?.*|avenida .*/si', strtolower($type_address))){
+		if(preg_match('/^av\.?.*|avenida .*/si', strtolower($type_address))){
 			$type = 'Avenida';
 		}
 		
-		if(preg_match('/^b[c]?\.? ?.*|beco .*/si', strtolower($type_address))){
+		if(preg_match('/^b[c]?\.?.*|beco .*/si', strtolower($type_address))){
 			$type = 'Beco';
 		}
 		
-		if(preg_match('/^cal[cç]?\.? ?.*|cal[cç]ada .*/si', strtolower($type_address))){
+		if(preg_match('/^cal[cç]?\.?.*|cal[cç]ada .*/si', strtolower($type_address))){
 			$type = 'Calçada';
 		}
 		
-		if(preg_match('/^con[d]?\.? ?.*|condom[ií]nio .*/si', strtolower($type_address))){
+		if(preg_match('/^con[d]?\.?.*|condom[ií]nio .*/si', strtolower($type_address))){
 			$type = 'Condomínio';
 		}
 		
-		if(preg_match('/^cj\.? ?.*|conj\.? ?.*|conju\.? ?.*|conjunto .*/si', strtolower($type_address))){
+		if(preg_match('/^cj\.?.*|conj\.?.*|conju\.?.*|conjunto .*/si', strtolower($type_address))){
 			$type = 'Conjunto';
 		}
 		
-		if(preg_match('/^esc\.? ?.*|esd\.? ?.*|escad\.? ?.*|escadaria .*/si', strtolower($type_address))){
+		if(preg_match('/^esc\.?.*|esd\.?.*|escad\.?.*|escadaria .*/si', strtolower($type_address))){
 			$type = 'Escadaria';
 		}
 		
-		if(preg_match('/^es[t]?\.? ?.*|estrada .*/si', strtolower($type_address))){
+		if(preg_match('/^es[t]?\.?.*|estrada .*/si', strtolower($type_address))){
 			$type = 'Estrada';
 		}
 		
-		if(preg_match('/^ga[l]?\.? ?.*|galeria .*/si', strtolower($type_address))){
+		if(preg_match('/^ga[l]?\.?.*|galeria .*/si', strtolower($type_address))){
 			$type = 'Galeria';
 		}
 		
-		if(preg_match('/^jd\.? ?.*|jardim .*/si', strtolower($type_address))){
+		if(preg_match('/^jd\.?.*|jardim .*/si', strtolower($type_address))){
 			$type = 'Jardim';
 		}
 		
-		if(preg_match('/^l[g]?\.? ?.*|largo .*/si', strtolower($type_address))){
+		if(preg_match('/^l[g]?\.?.*|largo .*/si', strtolower($type_address))){
 			$type = 'Largo';
 		}
 		
-		if(preg_match('/^p[cç]?[a]??\.? ?.*|pra[cç]a .*/si', strtolower($type_address))){
-			$type = 'Praça';
+		if(preg_match('/^p[cç]?[a]??\.?.*|pra[cç]a .*/si', strtolower($type_address))){
+			$type = 'Praca';
 		}
 		
-		if(preg_match('/^r\.? ?.*|rua .*/si', strtolower($type_address))){
+		if(preg_match('/^r\.?.*|rua .*/si', strtolower($type_address))){
 			$type = 'Rua';
 		}
 		
-		if(preg_match('/^rod\.? ?.*|rodovia .*/si', strtolower($type_address))){
+		if(preg_match('/^rod\.?.*|rodovia .*/si', strtolower($type_address))){
 			$type = 'Rodovia';
 		}
 		
-		if(preg_match('/^tv\.? ?.*|travessa .*/si', strtolower($type_address))){
+		if(preg_match('/^tv\.?.*|travessa .*/si', strtolower($type_address))){
 			$type = 'Travessa';
 		}
 		
-		if(preg_match('/^trv\.? ?.*|trevo .*/si', strtolower($type_address))){
+		if(preg_match('/^trv\.?.*|trevo .*/si', strtolower($type_address))){
 			$type = 'Trevo';
 		}
 		
-		if(preg_match('/^vl\.? ?.*|vila .*/si', strtolower($type_address))){
+		if(preg_match('/^vl\.?.*|vila .*/si', strtolower($type_address))){
 			$type = 'Vila';
 		}
 
-		if(preg_match('/^vd\.? ?.*|viaduto .*/si', strtolower($type_address))){
+		if(preg_match('/^vd\.?.*|viaduto .*/si', strtolower($type_address))){
 			$type = 'Viaduto';
 		}
 
@@ -674,7 +706,7 @@ class ImportComponent extends Component {
 			$type = $this->getTypeAddress($street);
 		}		
 
-		return $type;
+		return $this->clearName($type);
 	}
 
 	/**
@@ -684,51 +716,53 @@ class ImportComponent extends Component {
 		/**
 		* Remove tudo que nao for letas e numeros do nome da rua
 		*/
-		$street = preg_replace('/[^a-z0-9 ]/si', '', strtolower($street));
+		$street = preg_replace('/[^a-z0-9\. ]/si', '', strtolower($street));
 
 		/**
 		* Remove qualquer combinacao de logradouro que encontrar no endereço
 		*/
 		$street = preg_replace('/^bairro /si', '', $street);
-		$street = preg_replace('/^al\.? ?|alameda /si', '', $street);
-		$street = preg_replace('/^av\.? ?|avenida /si', '', $street);
-		$street = preg_replace('/^b[c]?\.? ?|beco /si', '', $street);
-		$street = preg_replace('/^cal[cç]?\.? ?|cal[cç]ada /si', '', $street);
-		$street = preg_replace('/^con[d]?\.? ?|condom[ií]nio /si', '', $street);
-		$street = preg_replace('/^cj\.? ?|conj\.? ?|conju\.? ?|conjunto /si', '', $street);
-		$street = preg_replace('/^esc\.? ?|esd\.? ?|escad\.? ?|escadaria /si', '', $street);
-		$street = preg_replace('/^es[t]?\.? ?|estrada /si', '', $street);
-		$street = preg_replace('/^ga[l]?\.? ?|galeria /si', '', $street);
-		$street = preg_replace('/^jd\.? ?|jardim /si', '', $street);
-		$street = preg_replace('/^l[g]?\.? ?|largo /si', '', $street);
-		$street = preg_replace('/^p[cç]?[a]?\.? ?|pra[cç]a /si', '', $street);
-		$street = preg_replace('/^r\.? ?|rua /si', '', $street);
-		$street = preg_replace('/^rod\.? ?|rodovia /si', '', $street);
-		$street = preg_replace('/^tv\.? ?|travessa /si', '', $street);
-		$street = preg_replace('/^trv\.? ?|trevo /si', '', $street);
-		$street = preg_replace('/^vl\.? ?|vila /si', '', $street);
-		$street = preg_replace('/^vd\.? ?|viaduto /si', '', $street);
+		$street = preg_replace('/^al\.?|alameda /si', '', $street);
+		$street = preg_replace('/^av\.?|avenida /si', '', $street);
+		$street = preg_replace('/^b[c]?\.?|beco /si', '', $street);
+		$street = preg_replace('/^cal[cç]?\.?|cal[cç]ada /si', '', $street);
+		$street = preg_replace('/^con[d]?\.?|condom[ií]nio /si', '', $street);
+		$street = preg_replace('/^cj\.?|conj\.?|conju\.?|conjunto /si', '', $street);
+		$street = preg_replace('/^esc\.?|esd\.?|escad\.?|escadaria /si', '', $street);
+		$street = preg_replace('/^es[t]?\.?|estrada /si', '', $street);
+		$street = preg_replace('/^ga[l]?\.?|galeria /si', '', $street);
+		$street = preg_replace('/^jd\.?|jardim /si', '', $street);
+		$street = preg_replace('/^l[g]?\.?|largo /si', '', $street);
+		$street = preg_replace('/^p[cç]?[a]?\.?|pra[cç]a /si', '', $street);
+		$street = preg_replace('/^r[\. ]/si', '', $street);
+		$street = preg_replace('/^rua /si', '', $street);
+		$street = preg_replace('/^rod\.?|rodovia /si', '', $street);
+		$street = preg_replace('/^tv\.?|travessa /si', '', $street);
+		$street = preg_replace('/^trv\.?|trevo /si', '', $street);
+		$street = preg_replace('/^vl\.?|vila /si', '', $street);
+		$street = preg_replace('/^vd\.?|viaduto /si', '', $street);
 		$street = preg_replace('/cento e um/si', '101', $street);
 
 		/**
 		* Remove qualquer numero residencial que esteja no meio do endereço
 		*/
-		$street = preg_replace('/.*? (n [0-9]*?)[a-z ].*/si', '', $street);
-
+		$street = preg_replace('/(.*? )(n [0-9]*?)([a-z ].*)/si', "$1$3", $street);
 		/**
 		* Remove as abreviacoes
 		*/
 		$street = $this->removeAbreviacoes($street);
 
 		/**
-		* Remove os possiveis espaços antes e depois do endereço
-		*/
-		$street = trim($street);
-
-		/**
 		* Formata o nome com as primeiras letras em maiusculo
 		*/
-		$street = $this->clearName($street);
+		$street = $this->clearName($street, false);
+
+		/**
+		* Seta o nome da rua como null caso nao tenho nenhuma infomracao
+		*/
+		if(is_null($street) || empty($street) || trim($street) == ''){
+			$street = null;
+		}
 
 		return $street;
 	}
@@ -753,7 +787,7 @@ class ImportComponent extends Component {
 		* Caso o numero nao tenha sido carregado ainda, tenta carrega-lo a partir do nome da rua
 		*/
 		if(!$street_number && $street){
-			if(preg_match('/.*? (n [0-9]*?)[a-z ].*/si', '', $vet)){
+			if(preg_match('/.*? (n [0-9]*)/si', $street, $vet)){
 				$street_number = $vet[1];
 			}
 		}
@@ -990,6 +1024,7 @@ class ImportComponent extends Component {
 	* Remove abreviacoes
 	*/
 	private function removeAbreviacoes($txt){
+		$txt = trim($txt);
 		$txt = preg_replace('/ res /si', ' Residencial ', strtolower($txt));
 		$txt = preg_replace('/^res /si', 'Residencial ', strtolower($txt));
 		$txt = preg_replace('/^n s /si', 'Nossa Senhora ', strtolower($txt));
@@ -1012,7 +1047,7 @@ class ImportComponent extends Component {
 		$txt = preg_replace('/^pr\.? |praia /si', 'Praia ', $txt);
 		$txt = preg_replace('/^r\.? |rua /si', 'Rua ', $txt);
 		$txt = preg_replace('/^rod\.? |rodovia /si', 'Rodovia ', $txt);
-		$txt = preg_replace('/^s /si', 'São ', strtolower($txt));
+		$txt = preg_replace('/^s /si', 'Sao ', strtolower($txt));
 		$txt = preg_replace('/^sta /si', 'Santa ', strtolower($txt));
 		$txt = preg_replace('/^sto /si', 'Santo ', strtolower($txt));
 		$txt = preg_replace('/^trv\.? |trevo /si', 'Trevo ', $txt);
@@ -1373,26 +1408,26 @@ class ImportComponent extends Component {
 	* Mensura o tempo gasto nas consultas
 	*/
 	public function timing_ini($query_id, $query_desc){
-		$this->time_start = microtime(true);
-		$this->time_id = $query_id;
-		$this->time_desc = $query_desc;
+		// $this->time_start = microtime(true);
+		// $this->time_id = $query_id;
+		// $this->time_desc = $query_desc;
 	}
 
 	/**
 	* Mensura o tempo gasto nas consultas
 	*/
 	public function timing_end(){
-		$this->time_end = microtime(true);
-		$time = $this->time_end - $this->time_start;
-		$data = array(
-			'Timing' => array(
-				'query_id' => $this->time_id,
-				'query_desc' => $this->time_desc,
-				'time' => $time,
-				)
-			);
-		$this->Timing->create($data);
-		$this->Timing->save();
+		// $this->time_end = microtime(true);
+		// $time = $this->time_end - $this->time_start;
+		// $data = array(
+		// 	'Timing' => array(
+		// 		'query_id' => $this->time_id,
+		// 		'query_desc' => $this->time_desc,
+		// 		'time' => $time,
+		// 		)
+		// 	);
+		// $this->Timing->create($data);
+		// $this->Timing->save();
 	}
 
 	/**
@@ -1417,6 +1452,7 @@ class ImportComponent extends Component {
 					'adelinda',
 					'adila',
 					'adilia',
+					'adinalva',
 					'adosinda',
 					'adriana',
 					'adriane',
@@ -1431,6 +1467,7 @@ class ImportComponent extends Component {
 					'agnes',
 					'agonia',
 					'agueda',
+					'aguilar',
 					'aida',
 					'aide',
 					'airiza',
@@ -1443,7 +1480,9 @@ class ImportComponent extends Component {
 					'albina',
 					'alcilene',
 					'alcina',
+					'alcineia',
 					'alcione',
+					'alcy',
 					'alda',
 					'aldara',
 					'aldenir',
@@ -1452,6 +1491,7 @@ class ImportComponent extends Component {
 					'aldora',
 					'alegria',
 					'aleixa',
+					'alenice',
 					'alessandra',
 					'aleta',
 					'alexa',
@@ -1460,6 +1500,7 @@ class ImportComponent extends Component {
 					'alexia',
 					'alexina',
 					'alexis',
+					'alexsandra',
 					'alfreda',
 					'alia',
 					'aliana',
@@ -1590,6 +1631,7 @@ class ImportComponent extends Component {
 					'aurea',
 					'aurelia',
 					'aureliana',
+					'aureni',
 					'aurete',
 					'aurora',
 					'ausenda',
@@ -1718,6 +1760,7 @@ class ImportComponent extends Component {
 					'catilina',
 					'cecilia',
 					'celeste',
+					'celi',
 					'celia',
 					'celina',
 					'celinia',
@@ -1737,6 +1780,7 @@ class ImportComponent extends Component {
 					'christiani',
 					'christiany',
 					'cibele',
+					'cicera',
 					'cidalia',
 					'cidalina',
 					'cidalisa',
@@ -1760,6 +1804,7 @@ class ImportComponent extends Component {
 					'clarinda',
 					'clarisse',
 					'claudemira',
+					'claudenice',
 					'claudete',
 					'claudeth',
 					'claudia',
@@ -1767,6 +1812,7 @@ class ImportComponent extends Component {
 					'claudiane',
 					'claudiani',
 					'claudiceia',
+					'claudina',
 					'claudineia',
 					'clea',
 					'cleia',
@@ -1775,11 +1821,13 @@ class ImportComponent extends Component {
 					'clemencia',
 					'clementina',
 					'clemilda',
+					'clenilda',
 					'cleo',
 					'cleodice',
 					'cleonice',
 					'cleopatra',
 					'cleria',
+					'cleris',
 					'clesia',
 					'cleunice',
 					'cleusa',
@@ -1846,6 +1894,7 @@ class ImportComponent extends Component {
 					'daniana',
 					'daniela',
 					'daniele',
+					'danieli',
 					'daniella',
 					'danielle',
 					'danielli',
@@ -1866,6 +1915,7 @@ class ImportComponent extends Component {
 					'decia',
 					'deise',
 					'dejanira',
+					'delci',
 					'dele',
 					'delfina',
 					'delia',
@@ -1932,6 +1982,7 @@ class ImportComponent extends Component {
 					'donzelia',
 					'donzilia',
 					'dora',
+					'doraci',
 					'doralice',
 					'dores',
 					'doriana',
@@ -1964,6 +2015,7 @@ class ImportComponent extends Component {
 					'edileuza',
 					'edilsa',
 					'edilza',
+					'edimara',
 					'edina',
 					'edinalva',
 					'edine',
@@ -1980,12 +2032,14 @@ class ImportComponent extends Component {
 					'edneia',
 					'eduarda',
 					'eduina',
+					'edvania',
 					'efigenia',
 					'eglantina',
 					'elaine',
 					'elana',
 					'elba',
 					'elca',
+					'elci',
 					'elda',
 					'electra',
 					'eleia',
@@ -1993,6 +2047,7 @@ class ImportComponent extends Component {
 					'elen',
 					'elena',
 					'elenice',
+					'elenilda',
 					'elenir',
 					'elenita',
 					'eleonor',
@@ -2000,11 +2055,14 @@ class ImportComponent extends Component {
 					'elia',
 					'eliana',
 					'eliane',
+					'eliani',
 					'elicia',
 					'elida',
 					'eliene',
 					'elieny',
 					'eliete',
+					'elifas',
+					'elifaz',
 					'elin',
 					'elina',
 					'eline',
@@ -2043,7 +2101,9 @@ class ImportComponent extends Component {
 					'elvina',
 					'elvira',
 					'elza',
+					'elzi',
 					'elzira',
+					'elzy',
 					'ema',
 					'emanuela',
 					'emidia',
@@ -2059,6 +2119,8 @@ class ImportComponent extends Component {
 					'eola',
 					'eponina',
 					'ercilia',
+					'ereni',
+					'erenir',
 					'erica',
 					'erika',
 					'eris',
@@ -2091,11 +2153,13 @@ class ImportComponent extends Component {
 					'eulina',
 					'eunice',
 					'eurica',
+					'eurides',
 					'euridice',
 					'eutalia',
 					'euza',
 					'eva',
 					'evandra',
+					'evane',
 					'evangelina',
 					'evangelista',
 					'evanilda',
@@ -2176,6 +2240,7 @@ class ImportComponent extends Component {
 					'genciana',
 					'generosa',
 					'genesia',
+					'geni',
 					'genilda',
 					'genoveva',
 					'geny',
@@ -2204,6 +2269,7 @@ class ImportComponent extends Component {
 					'gildete',
 					'gileade',
 					'gilma',
+					'gilmara',
 					'gilselia',
 					'gina',
 					'gioconda',
@@ -2215,6 +2281,7 @@ class ImportComponent extends Component {
 					'giselda',
 					'gisele',
 					'giseli',
+					'giselia',
 					'giselle',
 					'giselli',
 					'gisete',
@@ -2374,6 +2441,7 @@ class ImportComponent extends Component {
 					'ivanilda',
 					'ivanilde',
 					'ivanildi',
+					'ivanir',
 					'ivanoela',
 					'ivany',
 					'ivete',
@@ -2388,7 +2456,9 @@ class ImportComponent extends Component {
 					'jacinta',
 					'jacira',
 					'jackelaine',
+					'jackelaine',
 					'jackeleine',
+					'jackeline',
 					'jacqueline',
 					'jalmira',
 					'jamila',
@@ -2438,6 +2508,7 @@ class ImportComponent extends Component {
 					'josefa',
 					'josefina',
 					'joselene',
+					'joseli',
 					'joselia',
 					'joselina',
 					'joselita',
@@ -2493,6 +2564,8 @@ class ImportComponent extends Component {
 					'keny',
 					'keyla',
 					'kyara',
+					'laci',
+					'lacy',
 					'laila',
 					'laira',
 					'lais',
@@ -2502,6 +2575,8 @@ class ImportComponent extends Component {
 					'laudiceia',
 					'laura',
 					'laureana',
+					'laureni',
+					'laurenir',
 					'laurina',
 					'laurinda',
 					'laurine',
@@ -2634,6 +2709,7 @@ class ImportComponent extends Component {
 					'lucilina',
 					'lucimar',
 					'lucimara',
+					'lucimary',
 					'lucimere',
 					'lucina',
 					'lucinda',
@@ -2646,6 +2722,7 @@ class ImportComponent extends Component {
 					'luciola',
 					'lucrecia',
 					'lucy',
+					'lucymari',
 					'ludimila',
 					'ludmila',
 					'luela',
@@ -2820,6 +2897,8 @@ class ImportComponent extends Component {
 					'marines',
 					'marinete',
 					'marineth',
+					'marineusa',
+					'marineuza',
 					'marinez',
 					'marinha',
 					'marisa',
@@ -2864,6 +2943,7 @@ class ImportComponent extends Component {
 					'matrosa',
 					'maude',
 					'maura',
+					'maurina',
 					'mavelete',
 					'mavilde',
 					'mavilia',
@@ -2927,6 +3007,7 @@ class ImportComponent extends Component {
 					'mourana',
 					'muna',
 					'muriela',
+					'myriam',
 					'myrian',
 					'naama',
 					'nadeja',
@@ -2964,6 +3045,7 @@ class ImportComponent extends Component {
 					'nazarina',
 					'neida',
 					'neide',
+					'neidemar',
 					'neireide',
 					'neise',
 					'neiva',
@@ -3031,6 +3113,7 @@ class ImportComponent extends Component {
 					'ocridalina',
 					'octavia',
 					'odete',
+					'odette',
 					'odila',
 					'odilia',
 					'ofelia',
@@ -3122,6 +3205,7 @@ class ImportComponent extends Component {
 					'rejane',
 					'rejany',
 					'renata',
+					'reni',
 					'renilda',
 					'riana',
 					'ribca',
@@ -3196,6 +3280,7 @@ class ImportComponent extends Component {
 					'rossana',
 					'rosy',
 					'rubia',
+					'rubilene',
 					'rubina',
 					'rufina',
 					'rute',
@@ -3219,6 +3304,7 @@ class ImportComponent extends Component {
 					'samira',
 					'sancha',
 					'sancia',
+					'sander',
 					'sandra',
 					'sandrina',
 					'santa',
@@ -3340,6 +3426,7 @@ class ImportComponent extends Component {
 					'tereza',
 					'terezinha',
 					'thais',
+					'thatiana',
 					'thays',
 					'thereza',
 					'therezinha',
@@ -3362,6 +3449,7 @@ class ImportComponent extends Component {
 					'ursula',
 					'ursulina',
 					'vaisa',
+					'valdelice',
 					'valdete',
 					'valdeth',
 					'valdilene',
@@ -3536,6 +3624,7 @@ class ImportComponent extends Component {
 				'adeilton',
 				'adeir',
 				'adelindo',
+				'adelino',
 				'adelmiro',
 				'adelmo',
 				'adelso',
@@ -3622,6 +3711,7 @@ class ImportComponent extends Component {
 				'aldemir',
 				'alder',
 				'alderico',
+				'aldir',
 				'aldo dino',
 				'aldo',
 				'aldonio',
@@ -3640,6 +3730,7 @@ class ImportComponent extends Component {
 				'alexio',
 				'alexis',
 				'alexsander',
+				'alexsandro',
 				'alexssander',
 				'alexssandro',
 				'alezio',
@@ -3714,6 +3805,7 @@ class ImportComponent extends Component {
 				'anibal',
 				'aniceto',
 				'anielo',
+				'anildo',
 				'anilson',
 				'anilton',
 				'anisio',
@@ -3750,6 +3842,7 @@ class ImportComponent extends Component {
 				'ari',
 				'ariel',
 				'arildo',
+				'arilson',
 				'arilton',
 				'arine',
 				'ariosto',
@@ -3757,6 +3850,7 @@ class ImportComponent extends Component {
 				'aristeu',
 				'aristides',
 				'aristoteles',
+				'arley',
 				'arlindo',
 				'armandino',
 				'armando',
@@ -3929,6 +4023,7 @@ class ImportComponent extends Component {
 				'clayton',
 				'cleber',
 				'cleberson',
+				'clebson',
 				'cledson',
 				'cleidimar',
 				'cleidson',
@@ -4007,6 +4102,7 @@ class ImportComponent extends Component {
 				'dercio',
 				'derli',
 				'derly',
+				'dermeval',
 				'deusdedito',
 				'devair',
 				'devani',
@@ -4056,6 +4152,7 @@ class ImportComponent extends Component {
 				'dylio',
 				'eberardo',
 				'edemilson',
+				'eden',
 				'edenilson',
 				'eder',
 				'ederson',
@@ -4066,6 +4163,7 @@ class ImportComponent extends Component {
 				'edgard',
 				'edi',
 				'edilson',
+				'edimar',
 				'edimilson',
 				'edinaldo',
 				'edipo',
@@ -4095,6 +4193,7 @@ class ImportComponent extends Component {
 				'egil',
 				'eladio',
 				'elcio',
+				'elcy',
 				'elder',
 				'elderlucio',
 				'eleazar',
@@ -4121,6 +4220,7 @@ class ImportComponent extends Component {
 				'elmer',
 				'eloi',
 				'eloir',
+				'eloy',
 				'elpidio',
 				'elsio',
 				'elson',
@@ -4142,6 +4242,7 @@ class ImportComponent extends Component {
 				'eneias',
 				'enes',
 				'engracio',
+				'eni',
 				'enildo',
 				'enilson',
 				'enio',
@@ -4326,6 +4427,7 @@ class ImportComponent extends Component {
 				'giuliano',
 				'givaldo',
 				'gladson',
+				'gladstone',
 				'gladys',
 				'glaucia',
 				'glaucio',
@@ -4446,6 +4548,7 @@ class ImportComponent extends Component {
 				'inocencio',
 				'ioque',
 				'iran',
+				'iranildo',
 				'irineu',
 				'irmino',
 				'isaac',
@@ -4461,6 +4564,7 @@ class ImportComponent extends Component {
 				'isidro',
 				'isildo',
 				'ismael',
+				'ismar',
 				'isolino',
 				'israel',
 				'italo',
@@ -4478,11 +4582,13 @@ class ImportComponent extends Component {
 				'jabes',
 				'jabim',
 				'jaci',
+				'jacimar',
 				'jacinto',
 				'jackson',
 				'jaco',
 				'jacob',
 				'jacome',
+				'jacy',
 				'jader',
 				'jadilson',
 				'jadir',
@@ -4527,6 +4633,7 @@ class ImportComponent extends Component {
 				'job',
 				'jobson',
 				'jocelino',
+				'jocemir',
 				'jociano',
 				'jocimar',
 				'joel',
@@ -4564,11 +4671,13 @@ class ImportComponent extends Component {
 				'josias',
 				'josiel',
 				'josimar',
+				'josino',
 				'josselino',
 				'josue',
 				'jovani',
 				'jovelino',
 				'jovenil',
+				'joversino',
 				'jovito',
 				'jozelio',
 				'joziel',
@@ -4602,6 +4711,7 @@ class ImportComponent extends Component {
 				'ladislau',
 				'lael',
 				'laercio',
+				'laerte',
 				'laertes',
 				'laudelino',
 				'laudir',
@@ -4787,6 +4897,7 @@ class ImportComponent extends Component {
 				'natercio',
 				'nazario',
 				'neemias',
+				'nei',
 				'nelio',
 				'nelmo',
 				'nelson',
@@ -4842,6 +4953,7 @@ class ImportComponent extends Component {
 				'olimpio',
 				'olindo',
 				'olinto',
+				'olival',
 				'olivar',
 				'oliverio',
 				'olivier',
@@ -4854,6 +4966,7 @@ class ImportComponent extends Component {
 				'orandino',
 				'orencio',
 				'orestes',
+				'orival',
 				'orlandino',
 				'orlando',
 				'orlindo',
@@ -5000,6 +5113,7 @@ class ImportComponent extends Component {
 				'rosario',
 				'rosemar',
 				'rosil',
+				'rosimar',
 				'rosival',
 				'rosivaldo',
 				'rossano',
@@ -5079,10 +5193,12 @@ class ImportComponent extends Component {
 				'sidraque',
 				'sifredo',
 				'silas',
+				'silmar',
 				'silvano',
 				'silverio',
 				'silvestre',
 				'silviano',
+				'silvino',
 				'silvio',
 				'simao',
 				'simauro',
@@ -5099,6 +5215,8 @@ class ImportComponent extends Component {
 				'socrates',
 				'soeiro',
 				'solano',
+				'solom',
+				'solon',
 				'sotero',
 				'suraje',
 				'susano',
@@ -5159,16 +5277,20 @@ class ImportComponent extends Component {
 				'urien',
 				'vagner',
 				'vaise',
+				'valber',
 				'valci',
 				'valcir',
 				'valcy',
 				'valdeci',
+				'valdecir',
 				'valdecy',
+				'valdeir',
 				'valdemar',
 				'valdemir',
 				'valdemiro',
 				'valdeni',
 				'valdenir',
+				'valdinei',
 				'valdir',
 				'valdivino',
 				'valdnei',
@@ -5179,7 +5301,9 @@ class ImportComponent extends Component {
 				'valentino',
 				'valerio',
 				'valgi',
+				'valmir',
 				'valtair',
+				'valteir',
 				'valter',
 				'vander',
 				'vanderlei',
@@ -5321,6 +5445,7 @@ class ImportComponent extends Component {
 				'willie',
 				'willie',
 				'wilmar',
+				'wilsom',
 				'wilson',
 				'wilton',
 				'wladimir',

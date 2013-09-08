@@ -140,7 +140,6 @@ class ImportController extends AppController {
 				$this->Import->timing_ini(3, 'Carrega o proximo registro das tabelas de pessoa, telefone e endereco q ainda nao foram importado');
 				$entities = $this->NattFixoPessoa->next($indice, $this->Import->sizeReload, $this->uf);
 				$this->Import->timing_end();
-
 				/**
 				* Calcula o intervalo do proximo select q trara os dados para serem importados
 				*/
@@ -184,7 +183,7 @@ class ImportController extends AppController {
 					* Trata os dados da entidade para a importacao
 					*/
 					//Carrega o tipo de documento
-					$doc_type = $this->Import->getTypeDoc($v['NattFixoPessoa']['CPF_CNPJ'], $this->Import->clearName($v['NattFixoPessoa']['NOME_RAZAO']));
+					$doc_type = $this->Import->getTypeDoc($v['NattFixoPessoa']['CPF_CNPJ'], $this->Import->clearName($v['NattFixoPessoa']['NOME_RAZAO'], $v['NattFixoPessoa']['MAE']));
 					$this->Import->timing_ini(4, 'Trata os dados da entidade para a importacao');
 					$data = array(
 						'Entity' => array(
@@ -322,7 +321,7 @@ class ImportController extends AppController {
 							'street' => $street,
 							'number' => $this->Import->getStreetNumber($v['NattFixoTelefone']['NUMERO'], $v['NattFixoEndereco']['NOME_RUA']),
 							'neighborhood' => $this->Import->getNeighborhood($v['NattFixoEndereco']['BAIRRO']),
-							'complement' => $this->Import->getComplement($v['NattFixoTelefone']['COMPLEMENTO']),
+							'complement' => $this->Import->getComplement($v['NattFixoTelefone']['COMPLEMENTO'], $v['NattFixoEndereco']['NOME_RUA']),
 							'h1' => $hash['h1'],
 							'h2' => $hash['h2'],
 							'h3' => $hash['h3'],
