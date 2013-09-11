@@ -1,3 +1,5 @@
+<?php $this->assign('title', __($title_view))?>
+
 <div id="content-grid">
     <?php echo $this->AppGrid->create($modelClass, array('tableClass' => 'basic-table', 'id' => 'basic-table'))?>
     <thead>

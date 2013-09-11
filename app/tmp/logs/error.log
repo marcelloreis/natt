@@ -26,3 +26,4 @@
 2013-06-25 09:51:17 Error: Fatal Error (4): syntax error, unexpected T_VARIABLE in [/var/www/bigw/plugins/Ldap/Controller/AuthController.php, line 97]
 2013-06-25 10:33:06 Error: Fatal Error (4): syntax error, unexpected ')' in [/var/www/bigw/plugins/Ldap/Controller/AuthController.php, line 59]
 2013-06-25 13:52:16 Error: Fatal Error (1): Call to undefined method UsersController::loadModule() in [/var/www/bigw/app/Controller/UsersController.php, line 28]
+2013-09-10 21:58:50 Error: Fatal Error (4): syntax error, unexpected ';' in [/var/www/natt/app/View/Chk/edit.ctp, line 17]

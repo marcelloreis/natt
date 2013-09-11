@@ -24,6 +24,11 @@ App::uses('AppController', 'Controller');
 class ChkController extends AppController {
 
 	/**
+	* Carrega todos os modelos que serao usados no controller
+	*/
+	public $uses = array('Chk', 'Cliente');
+
+	/**
 	* Controller name
 	*
 	* @var string
@@ -41,6 +46,22 @@ class ChkController extends AppController {
 	public function index($params=array()){
 		//@override
 		parent::index($params);
+
+		/**
+		* Carrega o nome do index
+		*/
+		$title_view = 'Files in queue';
+		if(isset($this->params['named']['processed']) && $this->params['named']['processed'] == '1'){
+			$title_view = 'Processed files';
+		}
+
+
+		// $this->Chk->useTable = 'TELEFONE';
+
+		// $map = $this->Chk->find('first');
+
+// debug($map);		
+		$this->set(compact('title_view'));
 	}	
 
 	/**
@@ -54,5 +75,20 @@ class ChkController extends AppController {
 	public function edit($id=null){
 		//@override
 		parent::edit($id);
+
+		/**
+		* Carrega todos os clientes cadastrados no sistema
+		*/
+		$clientes = $this->Cliente->find('list', array('fields' => array('ID', 'NOME_RAZAO')));
+
+// debug($this->request->data);		
+// die;
+
+
+
+
+
+
+		$this->set(compact('clientes'));
 	}
 }
