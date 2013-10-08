@@ -1,5 +1,5 @@
 <?php
-App::uses('AppModelClean', 'Model');
+App::uses('AppModel', 'Model');
 /**
  * NattFixoPessoa Model
  *
@@ -17,62 +17,56 @@ App::uses('AppModelClean', 'Model');
  * @property Country $Country
  * @property City $City
  */
-class NattFixoPessoa extends AppModelClean {
+class NattFixoPessoa extends AppModel {
 	public $useTable = false;
 	public $useDbConfig = 'natt';
 	public $primaryKey = 'CPF_CNPJ';
 	public $displayField = 'NOME_RAZAO';
 	public $order = 'NattFixoPessoa.CPF_CNPJ';
 
-    public function next($indice, $size, $uf){
-    	$map = $this->find('all', array(
-            'recursive' => '-1',
-            'fields' => array(
-                'NattFixoPessoa.CPF_CNPJ',
-                'NattFixoPessoa.NOME_RAZAO',
-                'NattFixoPessoa.MAE',
-                'NattFixoPessoa.SEXO',
-                'NattFixoPessoa.DT_NASCIMENTO',
-                'NattFixoTelefone.TELEFONE',
-                'NattFixoTelefone.CEP',
-                'NattFixoTelefone.COMPLEMENTO',
-                'NattFixoTelefone.NUMERO',
-                'NattFixoTelefone.DATA_ATUALIZACAO',
-                'NattFixoEndereco.RUA',
-                'NattFixoEndereco.NOME_RUA',
-                'NattFixoEndereco.BAIRRO',
-                'NattFixoEndereco.CIDADE',
-                'NattFixoEndereco.UF',
-                'NattFixoEndereco.CEP',
-                ),
-            'joins' => array(
-                array(
-                    'table' => "TELEFONES_{$uf}",
-                    'alias' => 'NattFixoTelefone',
-                    'type' => 'inner',
-                    'conditions' => array(
-                        'NattFixoPessoa.CPF_CNPJ = NattFixoTelefone.CPF_CNPJ',
-                                )
-                    ),
-                array(
-                    'table' => "ENDERECO_{$uf}",
-                    'alias' => 'NattFixoEndereco',
-                    'type' => 'inner',
-                    'conditions' => array(
-                        'NattFixoTelefone.COD_END = NattFixoEndereco.COD_END',
-                                )
-                    )
-                ),
-            'conditions' => array('NattFixoPessoa.CPF_CNPJ' => '10153108770') ,
-            // 'conditions' => array('NattFixoPessoa.CPF_CNPJ' => '00445928760') ,
-            // 'conditions' => array('NattFixoPessoa.CPF_CNPJ >' => '5716558747') ,
-            'order' => array(
-                'NattFixoPessoa.CPF_CNPJ',
-                ),
-            // 'limit' => "10",
-    		'limit' => "{$indice},{$size}",
+	public $hasMany = array(
+        'NattFixoTelefone' => array(
+            'className' => 'NattFixoTelefone',
+            'foreignKey' => 'CPF_CNPJ',
+            'type' => 'inner'
+        )
+    );
+
+    public function next(){
+    	$pessoa = $this->find('first', array(
+    		'recursive' => '-1',
+    		'conditions' => array(
+    			'CPF_CNPJ !=' => '00000000000000000000',
+    			'transf' => null
+    			)
+    		));
+    	$map['pessoa'] = $pessoa['NattFixoPessoa'];
+
+    	$telefone = $this->NattFixoTelefone->find('default_all', array(
+    		'recursive' => '-1',
+    		'conditions' => array('CPF_CNPJ' => $pessoa['NattFixoPessoa']['CPF_CNPJ'])
     		));
 
+    	if(count($telefone)){
+	    	foreach ($telefone as $k => $v) {
+		    	$endereco = $this->NattFixoTelefone->NattFixoEndereco->find('first', array(
+		    		'recursive' => '-1',
+		    		'conditions' => array('COD_END' => $v['NattFixoTelefone']['COD_END'])
+		    		));
+	    		$map['telefone'][$k] = $v['NattFixoTelefone'];
+	    		$map['telefone'][$k]['endereco'] = $endereco['NattFixoEndereco'];
+			}
+    	}
+
+    	$this->offset($map['pessoa']['CPF_CNPJ']);
+
 		return $map;    	
+    }
+
+    public function offset($doc){
+    	$this->updateAll(
+    		array('NattFixoPessoa.transf' => true),
+    		array('NattFixoPessoa.CPF_CNPJ' => $doc)
+    	);
     }
 }

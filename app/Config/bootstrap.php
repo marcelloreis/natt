@@ -69,6 +69,7 @@ CakePlugin::load('Main', array('bootstrap' => true));
 CakePlugin::load('Google', array('bootstrap' => true));
 CakePlugin::load('Ldap', array('bootstrap' => true));
 CakePlugin::load('Facebook', array('bootstrap' => true));
+CakePlugin::load('Excel');
 CakePlugin::load('DebugKit');
 
 /**

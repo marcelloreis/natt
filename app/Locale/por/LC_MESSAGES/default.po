@@ -413,3 +413,16 @@ msgstr "restaurar"
 
 msgid "options"
 msgstr "opções"
+
+msgid "Files in queue"
+msgstr "Arquivos na fila"
+
+msgid "files in queue"
+msgstr "arquivos na fila"
+
+msgid "Processed files"
+msgstr "Arquivos Processados"
+
+msgid "processed files"
+msgstr "arquivos Processados"
+

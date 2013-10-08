@@ -1,0 +1,3 @@
+[submodule "app/Plugin"]
+	path = app/Plugin
+	url = https://github.com/martinbean/cakephp-fileupload-plugin

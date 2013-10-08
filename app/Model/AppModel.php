@@ -380,4 +380,23 @@ class AppModel extends Model {
 		//Caso nao encontre nenhum campo do tipo string, sera retornado o nome padrao "name"
 		return $field;
 	}
+
+	/**
+	* Função getNextId
+	* Retorna o numero do proximo id da tabela
+	*
+	* @return integer
+	*/
+	function getNextId(){
+        $next_id = 0;
+		if($this->useTable){
+	        $table = $this->useTable;
+	        $query = "SHOW TABLE STATUS LIKE '$table'";
+	        $map = $this->query($query);
+	        $next_id = $map[0]['TABLES']['Auto_increment'];
+		}
+
+        return $next_id;
+
+    } 
 }

@@ -90,6 +90,29 @@ class AppUtilsComponent extends Component {
 	}
 
 	/**
+	* Esta funcao calcula a idade com base na data passada por parametro
+	*/
+	function calcAge($date){
+	  $idade = false;
+	  if(preg_match('/[12][0-9]{3}-[01][0-9]-[0-3][0-9]/si', $date)){
+	    //Data atual e ja convertendo em timestamp
+	    $hoje = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+	    //Data do aniversário
+	    $date = explode('-', $date);
+	    $dia = ($date[2]);
+	    $mes = ($date[1]);
+	    $ano = ($date[0]);
+	    // Data do aniversário em timestamp
+	    $aniversario = mktime( 0, 0, 0, $mes, $dia, $ano);
+
+	    // Depois é só calcular data de hoje – aniversário)
+	    $idade = floor((((($hoje - $aniversario) / 60) / 60) / 24) / 365.25);
+	  }
+
+	  return $idade;
+	}	
+
+	/**
 	* Método dt2db
 	* Quebra a data para remontar no formato para inserção do banco de dados
 	* Ex.: $data = $this->AppUtils->dt2db('31/01/2013');

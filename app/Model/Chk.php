@@ -16,11 +16,20 @@ App::uses('AppModel', 'Model');
  */
 class Chk extends AppModel {
 	public $useTable = 'chk';
+	public $virtualFields = array(
+	    'filename' => 'CONCAT("/webroot/checkinlist/", Chk.client_id, "/", Chk.id, "/", Chk.id)',
+	    'filename_source' => 'CONCAT("/webroot/checkinlist/", Chk.client_id, "/", Chk.id, "/source")',
+	    'filename_excel' => 'CONCAT("/webroot/checkinlist/", Chk.client_id, "/", Chk.id, "/resultado.xls")',
+	);	
 
 	public $validate = array(
-		'chk' => array(
+		'filename' => array(
 		    'rule'    => array('extension', array('txt')),
 		    'message' => 'Please supply a valid document (.txt).'
-		)
+		),
+	    'client_id' => array(
+	        'rule'    => 'notEmpty',
+	        'message' => 'This field cannot be left blank'
+	    )		
 	);	
 }

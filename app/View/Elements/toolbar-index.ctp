@@ -18,36 +18,8 @@
         <?php echo $this->element('toolbar-index-paginator', array('config' => $config))?>
     </div><!-- End .left -->
     <div class="right">
-        <?php if($requestHandler == 'post' && !isset($this->params['named']['habtmModel'])):?>
-            <select name="bulkAction-<?php echo $modelClass?>" class="bulk-actions">
-                <option value=""><?php echo __('Bulk Actions')?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
-                <?php 
-                /**
-                * Carrega as Acoes em massa padrao do sistema
-                */
-                $bulks = '';
-                if($this->AppPermissions->check("{$this->name}.trash") && !isset($this->params['named']['trashed'])){
-                    $bulks .= "<option value=\"{$this->Html->url(array('action' => 'trash'))}\">" . __('Move to Trash') . "</option>";
-                }
-
-                if(isset($this->params['named']['trashed']) && $this->AppPermissions->check("{$this->name}.trash")){
-                    $bulks .= "<option value=\"{$this->Html->url(array('action' => 'restore'))}\">" . __('Restore') . "</option>";
-                }
-
-                if($this->AppPermissions->check("{$this->name}.delete") && isset($this->params['named']['trashed'])){
-                    $bulks .= "<option value=\"{$this->Html->url(array('action' => 'delete'))}\">" . __('Delete Permanently') . "</option>";
-                }
-
-                echo $this->fetch('toolbar-index-bulkAction', $bulks);
-                ?>
-            </select>
-            <input type="button" id="<?php echo $modelClass?>" value="<?php echo __('Apply')?>" title="<?php echo __('Apply the action')?>" class="button-text bulkAction tip-s"/>
-        <?php endif;?>
-
-        
         <?php if($this->AppPermissions->check("{$this->name}.trash") && isset($trashed) && !isset($this->params['named']['habtmModel'])):?>
         <?php $trashedIndicator = $trashed > 0?"<p>{$trashed}</p>":''?>
-            <span class="separator"><!-- seperator --></span>
                 <?php echo $this->fetch('toolbar-index-buttons-trash', 
                 $this->Html->link(sprintf(__("Show all %s"), __d('fields', $this->name)), array('action' => 'index'), array('title' => sprintf(__("Show all %s"), __d('fields', $this->name)), 'class' => 'button-text button-small tip-s', 'escape' => false))
                 . "<span></span>"

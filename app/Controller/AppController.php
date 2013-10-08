@@ -51,6 +51,7 @@ class AppController extends Controller {
 		'DebugKit.Toolbar' => array('autoRun' => false),
 		'Facebook.AppFacebook',
 		);
+	
 	/**
 	* Carrega os helpers que poderao ser usados em quaisquer view desta framework
 	*/
@@ -150,7 +151,7 @@ class AppController extends Controller {
 		/**
 		 * Autorizações gerais
 		 */
-		$this->Auth->allow('login', 'logout', 'authentication', 'natt_fixo_2_landline');
+		$this->Auth->allow('login', 'logout', 'authentication', 'natt_fixo_2_landline', 'process');
 	}
 
     /**

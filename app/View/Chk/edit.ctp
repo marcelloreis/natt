@@ -13,12 +13,13 @@
             <?php echo $this->element('toolbar-edit')?>
             <div class="inner-spacer set-cells">
                 <?php echo $this->Form->hidden('id')?>
+                <?php echo $this->Form->hidden('status', array('value' => CHK_STATUS_QUEUE))?>
                 <?php echo $this->AppForm->separator()?>
                 <?php echo $this->AppForm->input('client_id', array('type' => __('select'), 'empty' => __('select'), 'options' => $clientes))?>
                 <?php echo $this->AppForm->separator()?>
                 <hr/>
                 <?php echo $this->AppForm->separator()?>
-                <?php echo $this->AppForm->input('chk', array('type' => 'file'))?>
+                <?php echo $this->AppForm->input('Files.filename', array('label' => 'Arquivo', 'type' => 'file'))?>
                 <?php echo $this->AppForm->separator()?>
             </div>   
             <?php echo $this->AppForm->end()?>
